@@ -17,7 +17,8 @@ so ~1000 along a roofline) driven by small WLED controllers (ESP32 boards) fixed
 or garage. Owners usually have several controllers, sometimes at more than one address, and
 can share them with family.
 
-The app talks only to the **JTS cloud** (`https://wled.cloudjohnson.com`). The cloud relays
+The app talks only to a **JTS cloud panel**: `https://wled.cloudjohnson.com` by default, or any
+self-hosted one the user names at sign-in (§4.0). The cloud relays
 everything to the controllers over a link they hold open, so the phone never needs to be on
 the same network as the lights. See `docs/API.md`.
 
@@ -82,6 +83,24 @@ once on the house and then go to Looks or Colour to change them. Looks and Colou
 ## 4. Screens
 
 Screen stills are referenced as `[NN]` → `mockups/screens/NN-*.png`.
+
+### 4.0 Sign in, and which server
+
+The panel can be hosted by anyone, so the server is chosen at sign-in, not built in.
+
+- The sign-in screen shows email and password, and under them **"Server: wled.cloudjohnson.com
+  · Change"**. Most people never touch it.
+- **Change** opens a field ("Your panel's address, e.g. lights.example.com") and a **Check**
+  button. The app checks it is a JTS panel (API §0) before any password is sent, and says
+  plainly what is wrong otherwise: "Can't reach that address", "That address isn't a JTS Lights
+  panel", "This panel needs a newer version of the app".
+- Opening an invite link sets the server automatically.
+- **Setup → Account** shows the server and the signed-in email, with **Change server** (signs
+  out) and **Sign out**.
+- If the panel moves to a new address and the old one redirects, the app follows on its own
+  (API §0). If the old address is simply gone, the user sees "Can't reach your panel" with
+  **Change server**.
+- One server at a time in v1; several accounts is not designed.
 
 ### 4.1 Welcome `[01]`
 
@@ -384,7 +403,7 @@ photo → "Home"; `role != owner` → "Shared with you"; the rest → their own 
 1. **Mock mode first.** All screens against `reference/mock-data.json`, sample photos bundled,
    writes applied to the in-memory model, auto-trace returning `autoTraceResult` after a
    2 s delay. This is what Andrew tests in the Simulator.
-2. **Live mode** behind a sign-in screen: real devices, state, live WS, apply/copy/brightness/
+2. **Live mode** behind the sign-in screen (§4.0, with the server field): real devices, state, live WS, apply/copy/brightness/
    power via the endpoints in API.md §6. Mock/live switch in a debug menu.
 3. Photo upload and run saving against the real API (both exist today). Auto-trace and the
    zone-lighting step use the client-side mechanisms in API.md §6.2 / §7 until the server

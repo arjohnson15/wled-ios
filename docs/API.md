@@ -1,10 +1,36 @@
 # JTS cloud API, the parts the iPhone app needs
 
-Base URL: **`https://wled.cloudjohnson.com`**. JSON in and out. The server source is not in
+Base URL: **chosen by the user**, default `https://wled.cloudjohnson.com` (see §0). JSON in and out. The server source is not in
 this repo (it lives in Andrew's private workspace); this document is the contract. Anything
 marked **NOT BUILT** is a proposal: mock it, and the server will be built to match.
 
 ---
+
+## 0. Which server
+
+The panel can be self-hosted, so the server address is a setting, never a constant in code.
+
+```
+GET <url>/api/auth/status       (no auth)
+→ {"app": "jts-lights", "apiVersion": 1, "name": "JTS Lights", "publicUrl": "https://...",
+   "signupEnabled": true, "firstRun": false, "canEmail": true}
+```
+
+- **Before sending a password**, call this. Accept the server only if `app == "jts-lights"`;
+  otherwise say "That address isn't a JTS Lights panel". If `apiVersion` is higher than the app
+  knows, say the app needs updating.
+- Normalise what the user types: add `https://` if missing, drop a trailing `/`, allow a port.
+- **HTTPS only**, except hosts on the local network (private IPv4 ranges, `.local`), which may
+  use `http://` for someone running the panel on their own NAS (`NSAllowsLocalNetworking`).
+- **Moving.** If a request to the saved address ends up (after redirects) at a different host,
+  and that host's `/api/auth/status` reports `publicUrl` equal to itself, save the new address
+  and carry on. Never move just because a response *says* `publicUrl` is somewhere else; it
+  must also be where the redirect led, or anyone answering on the old address could take the
+  app elsewhere.
+- **The token belongs to one server.** Store it in the Keychain keyed by the server URL and
+  never send it to any other host. Changing the server in Settings signs out.
+- Invite links (`https://<server>/join/<code>`) carry the server, so opening one (universal link
+  or pasted) sets it without typing.
 
 ## 1. Auth
 

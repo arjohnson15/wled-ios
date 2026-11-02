@@ -29,6 +29,7 @@ you don't need them.
   and tappable (≥44 pt hit areas around each line).
 - Camera isn't available in the Simulator: use `PhotosPicker` and the sample photos in
   `mockups/sample-photos/` (add them to the asset catalog for DEBUG builds).
+- **The server address is user data, never a constant.** The default lives in one place.
 - **No secrets in the repo.** No tokens, passwords or account emails in code, plists, tests or
   commits. Live mode asks for the email and password at runtime and keeps the token in the
   Keychain.
@@ -52,4 +53,6 @@ you don't need them.
   swatches.
 - "Which lights?" and "Copy to…" sheets working against the mock model.
 - Times and Setup as placeholders (Setup → House photo restarts the photo flow).
+- Sign-in screen with the server field and check (DESIGN §4.0, API §0); in mock mode it can
+  accept anything.
 - VoiceOver labels on the picture's lines, Reduce Motion respected.
