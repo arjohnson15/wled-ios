@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JTS Lights — mobile app directions</title>
+<!-- Static mockups, made-up data, no app code. Three directions for the phone app, four screens each. -->
+<style>
+:root{--bg:#07090d;--card:#151922;--card2:#1c212c;--line:#ffffff14;--line2:#ffffff26;--fg:#eef0f5;--dim:#b3bccd;--mut:#8792a8;
+  --brand:#0090f0;--ink:#0a6fd8;--ok:#33d17a;--warn:#ffb84d;--r:22px}
+*{box-sizing:border-box;margin:0}
+body{background:#030406;color:var(--fg);font:14px/1.45 system-ui,-apple-system,"SF Pro Text","Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1640px;margin:0 auto;padding:36px 24px 80px}
+h1{font-size:28px;letter-spacing:-.03em}
+.lead{color:var(--mut);max-width:70ch;margin:6px 0 34px}
+section.dir{margin-bottom:64px}
+.dirhead{display:flex;gap:18px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}
+.dirhead .tag{font-weight:700;font-size:11px;line-height:1;letter-spacing:.16em;text-transform:uppercase;color:var(--brand)}
+.dirhead h2{font-size:22px;letter-spacing:-.02em}
+.dirtxt{color:var(--mut);max-width:90ch;margin-bottom:18px}
+.dirtxt b{color:var(--dim)}
+.row{display:flex;gap:26px;overflow-x:auto;padding:12px 12px 18px;scroll-snap-type:x mandatory}
+.cap{color:var(--mut);font-size:12.5px;margin-top:14px;max-width:360px}
+.cap b{color:var(--fg)}
+figure{flex:none;scroll-snap-align:start}
+
+.phone{width:360px;height:760px;border-radius:46px;background:var(--bg);position:relative;overflow:hidden;
+  box-shadow:0 0 0 10px #15171c,0 0 0 11px #2a2d35,0 30px 60px -20px #000}
+.phone .sb{height:44px;display:flex;justify-content:space-between;align-items:center;padding:0 26px;font-weight:600;font-size:14px;line-height:1;color:#fff;position:relative;z-index:5}
+.phone .sb i{width:110px;height:30px;background:#000;border-radius:20px;position:absolute;left:50%;top:8px;transform:translateX(-50%)}
+.scr{position:absolute;inset:44px 0 0 0;overflow:hidden;padding:0 16px}
+.home-ind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:120px;height:5px;border-radius:3px;background:#ffffff99;z-index:9}
+
+.mut{color:var(--mut)} .dim{color:var(--dim)} .sm{font-size:12px} .xs{font-size:11px}
+.t1{font-weight:700;font-size:26px;line-height:1.1;letter-spacing:-.03em} .t2{font-weight:700;font-size:19px;line-height:1.2;letter-spacing:-.02em} .t3{font-weight:650;font-size:15px;line-height:1.25}
+.eyebrow{font-weight:700;font-size:11px;line-height:1;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.flex{display:flex;align-items:center;gap:10px} .between{justify-content:space-between} .col{display:flex;flex-direction:column;gap:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pill{border-radius:999px;padding:7px 13px;background:var(--card2);border:1px solid var(--line);font-weight:600;font-size:12.5px;line-height:1;color:var(--dim);white-space:nowrap}
+.pill.on{background:#0090f022;border-color:#0090f088;color:#fff}
+.btn{border-radius:14px;padding:13px 16px;background:var(--card2);border:1px solid var(--line2);font-weight:650;font-size:14px;line-height:1;color:#fff;text-align:center}
+.btn.pri{background:linear-gradient(180deg,#159cff,var(--ink));border-color:transparent}
+.sw{width:26px;height:26px;border-radius:50%;box-shadow:inset 0 0 0 1px #0006,0 0 0 1px #fff2;flex:none}
+.switch{width:50px;height:30px;border-radius:15px;background:var(--ok);position:relative;flex:none}
+.switch:after{content:"";position:absolute;right:3px;top:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 4px #0005}
+.switch.off{background:#3a3f4b}.switch.off:after{right:auto;left:3px}
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:84px;padding:8px 10px 26px;display:flex;justify-content:space-around;
+  background:linear-gradient(180deg,#0b0d12e6,#07090df5);backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:8}
+.tabbar div{display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:600;font-size:10.5px;line-height:1;color:var(--mut);width:64px}
+.tabbar svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8}
+.tabbar div.on{color:var(--brand)}
+
+.strip{height:30px;border-radius:15px;background:#0a0c10;position:relative;overflow:hidden;border:1px solid var(--line)}
+.strip:before{content:"";position:absolute;inset:0;background:var(--g);
+  -webkit-mask:radial-gradient(circle,#000 3.2px,transparent 4.2px) 0 50%/11px 11px repeat-x;mask:radial-gradient(circle,#000 3.2px,transparent 4.2px) 0 50%/11px 11px repeat-x}
+.strip:after{content:"";position:absolute;inset:0;background:var(--g);filter:blur(10px);opacity:.35}
+.strip.big{height:40px;border-radius:20px}
+.slider{height:46px;border-radius:16px;background:#ffffff10;position:relative;overflow:hidden;border:1px solid var(--line)}
+.slider b{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#ffb35c55,#ffcf8a);border-radius:16px 0 0 16px}
+.slider span{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-weight:650;font-size:13px;line-height:1;color:#1b1206;z-index:2}
+.slider em{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-weight:650;font-size:13px;line-height:1;color:var(--dim);font-style:normal}
+
+.look{border-radius:16px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.look .lp{height:54px;background:var(--g);position:relative}
+.look .lp:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 9px,#0000004d 9px 11px)}
+.look .ln{padding:8px 10px;font-weight:650;font-size:12.5px;line-height:1.2}
+.look .ln small{display:block;color:var(--mut);font-weight:500;font-size:11px;margin-top:2px}
+.look.sel{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand)}
+
+.wheel{border-radius:50%;background:radial-gradient(circle,#fff 0,#fff0 68%),conic-gradient(red,#ff0,lime,cyan,blue,#f0f,red);position:relative;box-shadow:0 10px 30px -10px #000}
+.wheel .knob{position:absolute;width:30px;height:30px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px #000a;transform:translate(-50%,-50%)}
+
+.dimmer{position:absolute;inset:0;background:#0007;z-index:6}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#12151c;border-radius:28px 28px 0 0;z-index:7;padding:10px 16px 34px;border-top:1px solid var(--line2)}
+.grab{width:40px;height:5px;border-radius:3px;background:#ffffff33;margin:0 auto 12px}
+
+.g-warm{--g:linear-gradient(90deg,#ffb35c,#ffcf8a,#ffb35c)}
+.g-xmas{--g:repeating-linear-gradient(90deg,#ff2a2a 0 22px,#ffffff 22px 44px,#18c24a 44px 66px)}
+.g-cane{--g:repeating-linear-gradient(90deg,#ff2a2a 0 33px,#fff 33px 66px)}
+.g-hallo{--g:repeating-linear-gradient(90deg,#ff7a00 0 22px,#8a2be2 22px 44px,#3fff3f 44px 55px)}
+.g-minis{--g:repeating-linear-gradient(90deg,#ff2a2a 0 11px,#18c24a 11px 22px,#2f6bff 22px 33px,#ffb000 33px 44px)}
+.g-ice{--g:linear-gradient(90deg,#9fd8ff,#fff,#5aa8ff,#fff,#9fd8ff)}
+.g-fire{--g:linear-gradient(90deg,#ff4000,#ff9a00,#ff2000,#ffb000,#ff4000)}
+.g-off{--g:#20232a}
+
+.note{border:1px solid #0090f033;background:#0090f010;border-radius:14px;padding:16px 18px;color:#cfe0f5;max-width:100ch}
+a{color:var(--brand)}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+  <filter id="glow"><feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <pattern id="cane" width="18" height="6" patternUnits="userSpaceOnUse"><rect width="9" height="6" fill="#ff3030"/><rect x="9" width="9" height="6" fill="#fff"/></pattern>
+  <pattern id="mini" width="24" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#ff2a2a"/><rect x="6" width="6" height="6" fill="#18c24a"/><rect x="12" width="6" height="6" fill="#2f6bff"/><rect x="18" width="6" height="6" fill="#ffb000"/></pattern>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></symbol>
+  <symbol id="i-looks" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-colour" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-time" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-setup" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></symbol>
+</defs></svg>
+<div class="wrap">
+<h1>Phone app — three directions</h1>
+<p class="lead">Mockups with made-up data, so nothing here talks to a controller. Each direction has four screens; scroll
+each row sideways. You can pick one direction, or mix pieces, e.g. A's tab bar with C's house photo.
+<a href="your-house.html"><b>Interactive "Your house" →</b></a></p>
+
+<!-- ======================================== A ======================================== -->
+<section class="dir">
+  <div class="dirhead"><span class="tag">Direction A</span><h2>The remote</h2></div>
+  <p class="dirtxt">A proper app shell. There's <b>a tab bar at the bottom</b> and no hamburger menu. The lights strip
+  stays pinned at the top while you scroll. <b>Each tab does one thing</b> (Lights, Looks, Colour, Schedule), so you
+  never dig through eight tabs. Every control is in thumb reach. This is closest to what we have, rebuilt around a
+  phone.</p>
+  <div class="row">
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr">
+        <div class="flex between" style="margin:8px 0 18px"><div><div class="eyebrow">Good evening</div><div class="t1" style="margin-top:6px">Your lights</div></div>
+          <div class="pill" style="padding:9px 12px">+ Add</div></div>
+        <div class="card col" style="padding:16px">
+          <div class="flex between"><div><div class="t2">House</div><div class="mut sm">997 LEDs · 4 zones · Candy cane</div></div><div class="switch"></div></div>
+          <div class="strip g-cane"></div>
+          <div class="slider"><b style="width:62%"></b><span>☀</span><em>62%</em></div>
+          <div class="flex" style="gap:8px;flex-wrap:wrap"><span class="pill on">Candy cane</span><span class="pill">Warm white</span><span class="pill">Minis</span></div>
+        </div>
+        <div class="card col" style="margin-top:12px;padding:16px">
+          <div class="flex between"><div><div class="t2">Lake house</div><div class="mut sm">Off · turns on at sunset</div></div><div class="switch off"></div></div>
+          <div class="strip g-off"></div>
+        </div>
+        <div class="card flex between" style="margin-top:12px"><div><div class="t3">Tonight</div><div class="mut sm">On at 5:12 pm (sunset) · Off at 11:00 pm</div></div><span class="mut">›</span></div>
+      </div>
+      <div class="tabbar">
+        <div class="on"><svg><use href="#i-home"/></svg>Home</div><div><svg><use href="#i-looks"/></svg>Looks</div>
+        <div><svg><use href="#i-colour"/></svg>Colour</div><div><svg><use href="#i-time"/></svg>Schedule</div><div><svg><use href="#i-setup"/></svg>Setup</div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>Home.</b> Every controller as one card, with on/off, a live strip, brightness and its
+      three favourite looks. Most visits never leave this screen.</figcaption></figure>
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr">
+        <div class="flex between" style="margin:6px 0 12px"><span class="dim">‹ Home</span><span class="t3">House</span><div class="switch"></div></div>
+        <div class="strip big g-cane"></div>
+        <div class="mut xs" style="margin:6px 2px 14px">LIVE · what the house is showing now</div>
+        <div class="slider"><b style="width:62%"></b><span>☀ Brightness</span><em>62%</em></div>
+        <div class="eyebrow" style="margin:20px 0 10px">Zones</div>
+        <div class="flex" style="gap:8px;overflow:hidden"><span class="pill on">All 4</span><span class="pill">Front</span><span class="pill">Garage</span><span class="pill">Gable</span><span class="pill">Porch</span></div>
+        <div class="card" style="margin-top:14px;padding:0;overflow:hidden">
+          <div class="flex between" style="padding:14px"><div class="flex"><span class="sw" style="background:#ff2a2a"></span><span class="sw" style="background:#fff;margin-left:-14px"></span><div style="margin-left:4px"><div class="t3">Candy cane</div><div class="mut xs">Chase 2 · medium</div></div></div><span class="mut">Change ›</span></div>
+          <div style="border-top:1px solid var(--line);padding:14px" class="col">
+            <div class="flex between sm"><span class="dim">Speed</span><span class="mut">Slow ··· Fast</span></div>
+            <div class="slider" style="height:36px"><b style="width:45%;background:linear-gradient(90deg,#0090f044,#35a8ff)"></b></div>
+            <div class="flex between sm"><span class="dim">Stripe width</span><span class="mut">16 px</span></div>
+            <div class="slider" style="height:36px"><b style="width:70%;background:linear-gradient(90deg,#0090f044,#35a8ff)"></b></div>
+          </div>
+        </div>
+        <div class="grid2" style="margin-top:12px"><div class="btn">Save as scene</div><div class="btn">Count LEDs</div></div>
+      </div>
+      <div class="tabbar">
+        <div class="on"><svg><use href="#i-home"/></svg>Home</div><div><svg><use href="#i-looks"/></svg>Looks</div>
+        <div><svg><use href="#i-colour"/></svg>Colour</div><div><svg><use href="#i-time"/></svg>Schedule</div><div><svg><use href="#i-setup"/></svg>Setup</div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>One controller.</b> Zones are chips rather than a card you have to open. What's
+      playing is one row, and only its own sliders (named by the effect) show underneath. "Change ›" opens Looks.</figcaption></figure>
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr">
+        <div class="strip g-warm" style="margin-top:6px"></div>
+        <div class="flex between" style="margin:16px 0 14px"><div class="t2">Colour</div><span class="pill">All 4 zones</span></div>
+        <div class="grid3">
+          <div class="card col" style="align-items:center;padding:10px;border-color:var(--brand)"><span class="sw" style="width:34px;height:34px;background:#ffb35c"></span><b class="sm">Colour 1</b><span class="mut xs">Effect</span></div>
+          <div class="card col" style="align-items:center;padding:10px"><span class="sw" style="width:34px;height:34px;background:#000"></span><b class="sm">Colour 2</b><span class="mut xs">Background</span></div>
+          <div class="card col" style="align-items:center;padding:10px;opacity:.55"><span class="sw" style="width:34px;height:34px;background:#000"></span><b class="sm">Colour 3</b><span class="mut xs">not used now</span></div>
+        </div>
+        <div class="wheel" style="width:250px;height:250px;margin:22px auto 0"><span class="knob" style="left:68%;top:31%;background:#ffb35c"></span></div>
+        <div style="height:36px;border-radius:18px;margin-top:20px;background:linear-gradient(90deg,#ff8a2a,#ffd9a6,#fff,#cfe6ff)"></div>
+        <div class="flex between xs mut" style="margin-top:5px"><span>Candle</span><span>Daylight</span></div>
+        <div class="flex" style="gap:8px;margin-top:12px;justify-content:space-between">
+          <span class="sw" style="background:#ffb35c"></span><span class="sw" style="background:#ffd9a6"></span><span class="sw" style="background:#fff"></span><span class="sw" style="background:#ff2a2a"></span><span class="sw" style="background:#18c24a"></span><span class="sw" style="background:#2f6bff"></span><span class="sw" style="background:#8a2be2"></span><span class="sw" style="background:#ff7a00"></span>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div><svg><use href="#i-home"/></svg>Home</div><div><svg><use href="#i-looks"/></svg>Looks</div>
+        <div class="on"><svg><use href="#i-colour"/></svg>Colour</div><div><svg><use href="#i-time"/></svg>Schedule</div><div><svg><use href="#i-setup"/></svg>Setup</div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>Colour gets a whole screen.</b> A big round wheel you drag with your thumb, with the
+      house following live. Colours 1 to 3 sit across the top, and candle-to-daylight is one slider. Nothing to open
+      first.</figcaption></figure>
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr">
+        <div class="t1" style="margin:8px 0 12px">Looks</div>
+        <div class="card flex" style="padding:10px 14px;margin-bottom:12px"><span class="mut">⌕</span><span class="mut">Search 89 looks and 180 effects</span></div>
+        <div class="flex" style="gap:8px;overflow:hidden;margin-bottom:12px"><span class="pill on">Christmas</span><span class="pill">Everyday</span><span class="pill">Halloween</span><span class="pill">July 4th</span></div>
+        <div class="flex" style="gap:6px;margin-bottom:12px"><span class="pill" style="padding:5px 10px">All</span><span class="pill on" style="padding:5px 10px">Still</span><span class="pill" style="padding:5px 10px">Slow</span><span class="pill" style="padding:5px 10px">Fast</span></div>
+        <div class="grid2">
+          <div class="look sel g-cane"><div class="lp"></div><div class="ln">Candy cane<small>Medium · now playing</small></div></div>
+          <div class="look g-minis"><div class="lp"></div><div class="ln">Multicolour minis<small>Still</small></div></div>
+          <div class="look g-xmas"><div class="lp"></div><div class="ln">Red, white &amp; green<small>Still</small></div></div>
+          <div class="look g-ice"><div class="lp"></div><div class="ln">Icicle twinkle<small>Slow</small></div></div>
+          <div class="look g-warm"><div class="lp"></div><div class="ln">Silver bells<small>Slow</small></div></div>
+          <div class="look g-fire"><div class="lp"></div><div class="ln">Yule log<small>Medium</small></div></div>
+        </div>
+        <div class="mut xs" style="margin-top:12px">Tap to preview on the strip · tap again to send to the house</div>
+      </div>
+      <div class="tabbar">
+        <div><svg><use href="#i-home"/></svg>Home</div><div class="on"><svg><use href="#i-looks"/></svg>Looks</div>
+        <div><svg><use href="#i-colour"/></svg>Colour</div><div><svg><use href="#i-time"/></svg>Schedule</div><div><svg><use href="#i-setup"/></svg>Setup</div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>Holidays, effects and your scenes in one place.</b> Search across all of them, filter
+      by occasion and by pace (still / slow / fast), and get big tiles that show the actual colours.</figcaption></figure>
+  </div>
+</section>
+
+<!-- ======================================== B ======================================== -->
+<section class="dir">
+  <div class="dirhead"><span class="tag">Direction B</span><h2>Control Center</h2></div>
+  <p class="dirtxt">Borrowed from the iPhone's own Control Center and the Hue app. <b>Brightness is one big vertical
+  slider</b> you drag with your thumb, and zones are big square tiles you tap on or off. Colour, looks and times
+  <b>slide up as sheets</b> over the screen, so you never lose sight of the lights. It's the fewest screens and the
+  fastest to use, and it hides the advanced parts.</p>
+  <div class="row">
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr">
+        <div class="flex between" style="margin:8px 0 16px"><div class="t1">House</div><span class="pill">Lake house ▾</span></div>
+        <div style="display:grid;grid-template-columns:1fr 92px;gap:12px">
+          <div class="grid2" style="align-content:start">
+            <div class="card" style="aspect-ratio:1;background:linear-gradient(160deg,#ff2a2a33,#ffffff10);border-color:#ff6a6a55"><div class="flex between"><span class="sw" style="background:#ff2a2a"></span><span class="xs mut">ON</span></div><div class="t3" style="margin-top:30px">Front</div><div class="mut xs">412 LEDs</div></div>
+            <div class="card" style="aspect-ratio:1;background:linear-gradient(160deg,#ff2a2a33,#ffffff10);border-color:#ff6a6a55"><div class="flex between"><span class="sw" style="background:#fff"></span><span class="xs mut">ON</span></div><div class="t3" style="margin-top:30px">Garage</div><div class="mut xs">260 LEDs</div></div>
+            <div class="card" style="aspect-ratio:1;background:linear-gradient(160deg,#18c24a33,#ffffff10);border-color:#18c24a55"><div class="flex between"><span class="sw" style="background:#18c24a"></span><span class="xs mut">ON</span></div><div class="t3" style="margin-top:30px">Gable</div><div class="mut xs">185 LEDs</div></div>
+            <div class="card" style="aspect-ratio:1;opacity:.6"><div class="flex between"><span class="sw" style="background:#222"></span><span class="xs mut">OFF</span></div><div class="t3" style="margin-top:30px">Porch</div><div class="mut xs">140 LEDs</div></div>
+          </div>
+          <div style="border-radius:28px;background:#ffffff12;border:1px solid var(--line2);position:relative;overflow:hidden;height:300px">
+            <div style="position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(0deg,#ffcf8a,#ffb35c)"></div>
+            <div style="position:absolute;bottom:14px;left:0;right:0;text-align:center;color:#1b1206;font-weight:700;font-size:15px;line-height:1">62%</div>
+            <div style="position:absolute;top:12px;left:0;right:0;text-align:center" class="mut">☀</div>
+          </div>
+        </div>
+        <div class="strip g-cane" style="margin-top:14px"></div>
+        <div class="eyebrow" style="margin:18px 0 10px">Scenes</div>
+        <div class="grid4">
+          <div class="col" style="align-items:center;gap:6px"><div style="width:58px;height:58px;border-radius:50%;background:conic-gradient(#ff2a2a 0 50%,#fff 0);box-shadow:0 0 0 3px var(--brand)"></div><span class="xs">Candy</span></div>
+          <div class="col" style="align-items:center;gap:6px"><div style="width:58px;height:58px;border-radius:50%;background:#ffb35c"></div><span class="xs">Warm</span></div>
+          <div class="col" style="align-items:center;gap:6px"><div style="width:58px;height:58px;border-radius:50%;background:conic-gradient(#ff2a2a 0 25%,#18c24a 0 50%,#2f6bff 0 75%,#ffb000 0)"></div><span class="xs">Minis</span></div>
+          <div class="col" style="align-items:center;gap:6px"><div style="width:58px;height:58px;border-radius:50%;border:1.5px dashed var(--line2);display:grid;place-items:center" class="mut">+</div><span class="xs mut">Save</span></div>
+        </div>
+        <div class="grid3" style="margin-top:18px"><div class="btn">🎨 Colour</div><div class="btn">✨ Looks</div><div class="btn">⏱ Times</div></div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>One screen to run the house.</b> Tap a zone to switch it on or off, and long-press to
+      edit it. Thumb-sized brightness on the right, scenes as round buttons, and the three sheets below.</figcaption></figure>
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr"><div class="t1" style="margin:8px 0 16px">House</div><div class="strip big g-warm"></div></div>
+      <div class="dimmer"></div>
+      <div class="sheet" style="height:610px">
+        <div class="grab"></div>
+        <div class="flex between"><div class="t2">Colour</div><span class="pill on">Front + Garage</span></div>
+        <div class="flex" style="gap:18px;margin:14px 0 4px;justify-content:center">
+          <div class="col" style="align-items:center;gap:4px"><span class="sw" style="width:46px;height:46px;background:#ffb35c;box-shadow:0 0 0 3px var(--brand)"></span><span class="xs">Main</span></div>
+          <div class="col" style="align-items:center;gap:4px"><span class="sw" style="width:46px;height:46px;background:#000"></span><span class="xs mut">Background</span></div>
+          <div class="col" style="align-items:center;gap:4px"><span class="sw" style="width:46px;height:46px;background:#000;opacity:.5"></span><span class="xs mut">Accent</span></div>
+        </div>
+        <div class="wheel" style="width:270px;height:270px;margin:16px auto 0"><span class="knob" style="left:66%;top:30%;background:#ffb35c"></span></div>
+        <div style="height:34px;border-radius:17px;margin-top:18px;background:linear-gradient(90deg,#ff8a2a,#ffd9a6,#fff,#cfe6ff)"></div>
+        <div class="flex between xs mut" style="margin-top:6px"><span>Candle</span><span>Daylight</span></div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>Colour as a sheet.</b> The house stays visible at the top, so you watch the strip change
+      as you drag. Swipe the sheet down to close it.</figcaption></figure>
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr"><div class="t1" style="margin:8px 0 16px">House</div><div class="strip big g-hallo"></div></div>
+      <div class="dimmer"></div>
+      <div class="sheet" style="height:640px">
+        <div class="grab"></div>
+        <div class="flex between"><div class="t2">Looks</div><span class="mut sm">Halloween ▾</span></div>
+        <div style="display:flex;gap:12px;overflow:hidden;margin:16px -16px 0;padding:0 16px">
+          <div style="flex:none;width:230px" class="look sel g-hallo"><div class="lp" style="height:120px"></div><div class="ln" style="padding:12px"><div class="t3">Cauldron sparks</div><small>Purple, green and orange twinkles · Slow</small></div></div>
+          <div style="flex:none;width:230px" class="look g-fire"><div class="lp" style="height:120px"></div><div class="ln" style="padding:12px"><div class="t3">Jack-o'-lantern</div><small>Fast flicker</small></div></div>
+        </div>
+        <div class="eyebrow" style="margin:20px 0 10px">Feel</div>
+        <div class="col">
+          <div class="flex between sm"><span>Speed</span><span class="mut">Slow</span></div>
+          <div class="slider" style="height:34px"><b style="width:35%;background:linear-gradient(90deg,#8a2be244,#b57bff)"></b></div>
+          <div class="flex between sm"><span>Sparkle amount</span><span class="mut">Lots</span></div>
+          <div class="slider" style="height:34px"><b style="width:80%;background:linear-gradient(90deg,#8a2be244,#b57bff)"></b></div>
+        </div>
+        <div class="grid2" style="margin-top:18px"><div class="btn">Preview</div><div class="btn pri">Use on house</div></div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>Looks as a swipeable carousel</b> of large previews, with only the sliders that look
+      uses. "Preview" plays it on the strip without sending it to the house.</figcaption></figure>
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr">
+        <div class="t1" style="margin:8px 0 4px">Times</div>
+        <div class="mut sm" style="margin-bottom:18px">The controller keeps time itself, so this works with the internet down.</div>
+        <div class="card" style="padding:16px">
+          <div class="eyebrow" style="margin-bottom:12px">Tonight</div>
+          <div style="height:10px;border-radius:5px;background:linear-gradient(90deg,#1a1f2b 0 30%,#0090f0 30% 62%,#1a1f2b 62%)"></div>
+          <div class="flex between xs mut" style="margin-top:6px"><span>noon</span><span>5:12 on</span><span>11 off</span><span>6 am</span></div>
+        </div>
+        <div class="col" style="margin-top:14px">
+          <div class="card flex between"><div class="flex"><div style="font-size:22px">🌅</div><div><div class="t3">At sunset</div><div class="mut xs">Every day · Candy cane</div></div></div><div class="switch"></div></div>
+          <div class="card flex between"><div class="flex"><div style="font-size:22px">🌙</div><div><div class="t3">11:00 pm</div><div class="mut xs">Every day · Turn off</div></div></div><div class="switch"></div></div>
+          <div class="card flex between" style="opacity:.6"><div class="flex"><div style="font-size:22px">☀️</div><div><div class="t3">6:00 am</div><div class="mut xs">Weekdays · Warm white 30%</div></div></div><div class="switch off"></div></div>
+        </div>
+        <div class="btn" style="margin-top:14px">+ Add a time</div>
+        <div class="card flex" style="margin-top:14px;border-color:#33d17a55;background:#33d17a10"><span style="color:var(--ok)">●</span><span class="sm">Controller clock is right: 9:41 pm Central</span></div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>Schedules as a timeline.</b> One bar shows when the lights are on tonight, and each
+      rule is a card with a switch. The clock check that caught the "lights never turned off" bug is always visible.</figcaption></figure>
+  </div>
+</section>
+
+<!-- ======================================== C ======================================== -->
+<section class="dir">
+  <div class="dirhead"><span class="tag">Direction C</span><h2>Your house</h2></div>
+  <p class="dirtxt">The traced photo of your house <b>is</b> the main screen, with the rooflines glowing in the colours
+  they're actually showing. <b>Tap a run on the picture to pick that zone</b>, and a sheet slides up with its controls.
+  This uses the House photos work we already have, and nobody else's app does it. It needs a traced photo, and falls
+  back to direction A's screens without one.</p>
+  <div class="row">
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr" style="padding:0">
+        <div style="position:absolute;inset:0;background:radial-gradient(120% 60% at 50% 30%,#1b2440,#07090d 70%)"></div>
+        <svg viewBox="0 0 360 330" style="position:absolute;top:40px;left:0;width:360px;height:330px">
+          <path d="M20 300 V170 L110 95 L200 170 V300Z M200 300 V200 L270 150 L340 200 V300Z" fill="#141924" stroke="#232a3a"/>
+          <rect x="60" y="230" width="34" height="34" fill="#2a2412"/><rect x="130" y="230" width="34" height="34" fill="#2a2412"/><rect x="235" y="225" width="70" height="75" fill="#10131b" stroke="#232a3a"/>
+          <g filter="url(#glow)" stroke-linecap="round" fill="none">
+            <path d="M14 172 L110 92 L206 172" stroke="url(#cane)" stroke-width="5"/>
+            <path d="M200 202 L270 148 L344 202" stroke="url(#cane)" stroke-width="5"/>
+            <path d="M228 222 H312" stroke="#fff" stroke-width="4"/>
+          </g>
+        </svg>
+        <div style="position:absolute;top:8px;left:16px;right:16px" class="flex between"><div><div class="t2">House</div><div class="mut xs">Candy cane · 62%</div></div><div class="switch"></div></div>
+        <div style="position:absolute;top:380px;left:16px;right:16px" class="col">
+          <div class="mut xs" style="text-align:center">Tap a roofline to pick it · pinch to zoom</div>
+          <div class="flex" style="gap:8px;justify-content:center"><span class="pill on">Whole house</span><span class="pill">Front</span><span class="pill">Garage</span><span class="pill">Porch</span></div>
+          <div class="slider" style="margin-top:4px"><b style="width:62%"></b><span>☀</span><em>62%</em></div>
+          <div style="display:flex;gap:10px;overflow:hidden;margin-top:4px">
+            <div class="look sel g-cane" style="flex:none;width:96px"><div class="lp" style="height:40px"></div><div class="ln">Candy</div></div>
+            <div class="look g-warm" style="flex:none;width:96px"><div class="lp" style="height:40px"></div><div class="ln">Warm</div></div>
+            <div class="look g-minis" style="flex:none;width:96px"><div class="lp" style="height:40px"></div><div class="ln">Minis</div></div>
+            <div class="look g-ice" style="flex:none;width:96px"><div class="lp" style="height:40px"></div><div class="ln">Icicles</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div class="on"><svg><use href="#i-home"/></svg>House</div><div><svg><use href="#i-looks"/></svg>Looks</div>
+        <div><svg><use href="#i-time"/></svg>Times</div><div><svg><use href="#i-setup"/></svg>Setup</div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>The house is the home screen.</b> The rooflines glow in whatever they're really
+      showing (fed by the live colours we already get from the controller). Zone chips and quick looks sit underneath for
+      one-handed use.</figcaption></figure>
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr" style="padding:0">
+        <div style="position:absolute;inset:0;background:radial-gradient(120% 60% at 50% 25%,#1b2440,#07090d 70%)"></div>
+        <svg viewBox="0 0 360 330" style="position:absolute;top:-10px;left:0;width:360px;height:280px">
+          <path d="M20 300 V170 L110 95 L200 170 V300Z M200 300 V200 L270 150 L340 200 V300Z" fill="#141924" stroke="#232a3a"/>
+          <g filter="url(#glow)" stroke-linecap="round" fill="none">
+            <path d="M14 172 L110 92 L206 172" stroke="#ffb35c" stroke-width="7"/>
+            <path d="M200 202 L270 148 L344 202" stroke="url(#cane)" stroke-width="4" opacity=".35"/>
+            <path d="M228 222 H312" stroke="#fff" stroke-width="3" opacity=".35"/>
+          </g>
+        </svg>
+      </div>
+      <div class="sheet" style="height:480px">
+        <div class="grab"></div>
+        <div class="flex between"><div><div class="t2">Front roofline</div><div class="mut xs">412 LEDs · output 1</div></div><div class="switch"></div></div>
+        <div class="flex" style="gap:4px;margin:14px 0;background:#ffffff0d;border-radius:12px;padding:3px">
+          <span class="pill on" style="flex:1;text-align:center;border-radius:10px">Colour</span><span class="pill" style="flex:1;text-align:center;border-radius:10px;background:none;border-color:transparent">Effect</span><span class="pill" style="flex:1;text-align:center;border-radius:10px;background:none;border-color:transparent">Feel</span>
+        </div>
+        <div class="flex" style="gap:16px;align-items:center">
+          <div class="wheel" style="width:170px;height:170px;flex:none"><span class="knob" style="left:66%;top:30%;background:#ffb35c;width:24px;height:24px"></span></div>
+          <div class="col" style="flex:1">
+            <div class="flex"><span class="sw" style="background:#ffb35c;box-shadow:0 0 0 2px var(--brand)"></span><span class="sm">Main</span></div>
+            <div class="flex"><span class="sw" style="background:#000"></span><span class="sm mut">Background</span></div>
+            <div class="flex"><span class="sw" style="background:#000;opacity:.5"></span><span class="sm mut">Accent</span></div>
+          </div>
+        </div>
+        <div style="height:30px;border-radius:15px;margin-top:16px;background:linear-gradient(90deg,#ff8a2a,#ffd9a6,#fff,#cfe6ff)"></div>
+        <div class="grid4" style="margin-top:14px"><span style="height:38px;border-radius:12px;background:#ffb35c"></span><span style="height:38px;border-radius:12px;background:#ff2a2a"></span><span style="height:38px;border-radius:12px;background:#18c24a"></span><span style="height:38px;border-radius:12px;background:#2f6bff"></span></div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>Tap the front roofline.</b> It lights up on the picture, the others dim, and its sheet
+      opens with Colour / Effect / Feel as three segments rather than eight tabs.</figcaption></figure>
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr">
+        <div class="t1" style="margin:8px 0 6px">Looks</div>
+        <div class="mut sm" style="margin-bottom:14px">Each one shown on <b class="dim">your</b> house</div>
+        <div class="col">
+          <div class="card" style="padding:0;overflow:hidden;border-color:var(--brand)">
+            <svg viewBox="0 0 360 150" style="display:block;width:100%;background:radial-gradient(#1b2440,#0b0e14)">
+              <path d="M20 150 V95 L110 40 L200 95 V150Z M200 150 V110 L270 75 L340 110 V150Z" fill="#141924"/>
+              <g filter="url(#glow)" fill="none" stroke-linecap="round"><path d="M14 97 L110 37 L206 97" stroke="url(#cane)" stroke-width="5"/><path d="M200 112 L270 72 L344 112" stroke="url(#cane)" stroke-width="5"/></g></svg>
+            <div class="flex between" style="padding:12px 14px"><div><div class="t3">Candy cane</div><div class="mut xs">Christmas · medium chase</div></div><span class="pill on">Playing</span></div>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <svg viewBox="0 0 360 150" style="display:block;width:100%;background:radial-gradient(#1b2440,#0b0e14)">
+              <path d="M20 150 V95 L110 40 L200 95 V150Z M200 150 V110 L270 75 L340 110 V150Z" fill="#141924"/>
+              <g filter="url(#glow)" fill="none" stroke-linecap="round"><path d="M14 97 L110 37 L206 97" stroke="url(#mini)" stroke-width="5"/><path d="M200 112 L270 72 L344 112" stroke="url(#mini)" stroke-width="5"/></g></svg>
+            <div class="flex between" style="padding:12px 14px"><div><div class="t3">Multicolour minis</div><div class="mut xs">Christmas · still</div></div><span class="mut">Preview</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div><svg><use href="#i-home"/></svg>House</div><div class="on"><svg><use href="#i-looks"/></svg>Looks</div>
+        <div><svg><use href="#i-time"/></svg>Times</div><div><svg><use href="#i-setup"/></svg>Setup</div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>Every look rendered on your own house</b> rather than on a generic bar, so you can see
+      what candy cane will look like on the gables before you pick it.</figcaption></figure>
+
+    <figure><div class="phone"><div class="sb"><span>9:41</span><i></i><span>●●● ▮</span></div>
+      <div class="scr">
+        <div class="t1" style="margin:8px 0 6px">Setup</div>
+        <div class="mut sm" style="margin-bottom:16px">Plain-English sections. The original WLED pages are still one tap away.</div>
+        <div class="col">
+          <div class="card flex between"><div class="flex"><span style="font-size:20px">💡</span><div><div class="t3">Lights &amp; wiring</div><div class="mut xs">4 outputs · 997 LEDs · Dig-Quad</div></div></div><span class="mut">›</span></div>
+          <div class="card flex between"><div class="flex"><span style="font-size:20px">🔌</span><div><div class="t3">Power</div><div class="mut xs">2 supplies · 40 A · fine at 62%</div></div></div><span class="mut">›</span></div>
+          <div class="card flex between"><div class="flex"><span style="font-size:20px">📷</span><div><div class="t3">House photo</div><div class="mut xs">3 runs traced</div></div></div><span class="mut">›</span></div>
+          <div class="card flex between"><div class="flex"><span style="font-size:20px">👪</span><div><div class="t3">Who can use it</div><div class="mut xs">You + 1 family member</div></div></div><span class="mut">›</span></div>
+          <div class="card flex between"><div class="flex"><span style="font-size:20px">🔗</span><div><div class="t3">Keep in step</div><div class="mut xs">Lake house follows this one</div></div></div><span class="mut">›</span></div>
+          <div class="card flex between" style="border-color:#ffb84d55;background:#ffb84d0d"><div class="flex"><span style="font-size:20px">⬆️</span><div><div class="t3">Update available</div><div class="mut xs">Release 86 · settings-save fix</div></div></div><span class="pill" style="color:var(--warn)">Install</span></div>
+          <div class="card flex between"><div class="flex"><span style="font-size:20px">⚙️</span><div><div class="t3">Original WLED settings</div><div class="mut xs">Everything, the stock way</div></div></div><span class="mut">↗</span></div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <div><svg><use href="#i-home"/></svg>House</div><div><svg><use href="#i-looks"/></svg>Looks</div>
+        <div><svg><use href="#i-time"/></svg>Times</div><div class="on"><svg><use href="#i-setup"/></svg>Setup</div>
+      </div><div class="home-ind"></div></div>
+      <figcaption class="cap"><b>Settings as a list, like iOS Settings,</b> instead of six tabs on one long page. Each
+      row says what is set, so you can tell at a glance whether anything needs attention.</figcaption></figure>
+  </div>
+</section>
+
+<div class="note">
+  <b>My recommendation:</b> C's house photo as the home screen when there is one, on A's app shell (bottom tab bar,
+  Colour as its own screen, Looks with search and filters), with B's two best ideas borrowed: the vertical brightness
+  slider and the timeline for schedules. All three work with the current cloud. None of them needs firmware changes,
+  and the colour screen already streams to the lights as you drag. Tell me which you like, or which parts, and I'll
+  build it.
+</div>
+</div>
+</body></html>

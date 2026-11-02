@@ -1,0 +1,397 @@
+{
+ "note": "Made-up account for the simulator. Same shapes as the live API (docs/API.md). Zone = WLED segment; zone ids here are the segment ids on that controller. As on the real controller, seg.fx and seg.pal are integer indexes into `effects` and `palettes` (the controller's /json/eff and /json/pal lists). The mock lists are a short subset; a real controller has ~187 effects and ~72 palettes, and the ids differ between firmware builds, so always resolve by name.",
+ "user": {
+  "id": 1,
+  "name": "Andrew",
+  "email": "demo@example.com"
+ },
+ "devices": [
+  {
+   "id": "dev_house00000001",
+   "name": "House",
+   "online": true,
+   "role": "owner",
+   "place": "Home",
+   "lanIp": "10.0.1.196",
+   "follows": null,
+   "followers": [],
+   "state": {
+    "on": true,
+    "bri": 178,
+    "seg": [
+     {
+      "id": 0,
+      "n": "Front roof",
+      "start": 0,
+      "stop": 180,
+      "len": 180,
+      "on": true,
+      "fx": 4,
+      "pal": 0,
+      "sx": 180,
+      "ix": 64,
+      "col": [
+       [
+        255,
+        0,
+        0
+       ],
+       [
+        255,
+        255,
+        255
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ],
+      "sel": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "dev_garage0000002",
+   "name": "Garage",
+   "online": true,
+   "role": "owner",
+   "place": "Home",
+   "lanIp": "10.0.1.197",
+   "follows": null,
+   "followers": [],
+   "state": {
+    "on": true,
+    "bri": 178,
+    "seg": [
+     {
+      "id": 0,
+      "n": "Garage roof",
+      "start": 0,
+      "stop": 120,
+      "len": 120,
+      "on": true,
+      "fx": 4,
+      "pal": 0,
+      "sx": 180,
+      "ix": 64,
+      "col": [
+       [
+        255,
+        0,
+        0
+       ],
+       [
+        255,
+        255,
+        255
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ],
+      "sel": true
+     },
+     {
+      "id": 1,
+      "n": "Garage door",
+      "start": 120,
+      "stop": 250,
+      "len": 130,
+      "on": true,
+      "fx": 0,
+      "pal": 0,
+      "sx": 128,
+      "ix": 128,
+      "col": [
+       [
+        255,
+        180,
+        105
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ],
+      "sel": false
+     }
+    ]
+   }
+  },
+  {
+   "id": "dev_lake000000003",
+   "name": "Lake house",
+   "online": true,
+   "role": "owner",
+   "place": "Lake house",
+   "lanIp": "192.168.12.197",
+   "follows": null,
+   "followers": [],
+   "state": {
+    "on": true,
+    "bri": 140,
+    "seg": [
+     {
+      "id": 0,
+      "n": "Dock & deck",
+      "start": 0,
+      "stop": 300,
+      "len": 300,
+      "on": true,
+      "fx": 9,
+      "pal": 9,
+      "sx": 60,
+      "ix": 128,
+      "col": [
+       [
+        0,
+        90,
+        255
+       ],
+       [
+        0,
+        220,
+        200
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ],
+      "sel": true
+     }
+    ]
+   }
+  },
+  {
+   "id": "dev_mom0000000004",
+   "name": "Mom's porch",
+   "online": false,
+   "role": "control",
+   "place": "Shared with you",
+   "sharedBy": "Mom",
+   "lanIp": null,
+   "follows": null,
+   "followers": [],
+   "state": {
+    "on": false,
+    "bri": 153,
+    "seg": [
+     {
+      "id": 0,
+      "n": "Porch rail",
+      "start": 0,
+      "stop": 90,
+      "len": 90,
+      "on": true,
+      "fx": 0,
+      "pal": 0,
+      "sx": 128,
+      "ix": 128,
+      "col": [
+       [
+        255,
+        180,
+        105
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ],
+      "sel": true
+     }
+    ]
+   }
+  }
+ ],
+ "photo": {
+  "id": "ph_demo00000001",
+  "name": "Front of the house",
+  "image": "mockups/sample-photos/house-night.png",
+  "daylightImage": "mockups/sample-photos/house-dusk.png",
+  "width": 1440,
+  "height": 1120,
+  "runs": [
+   {
+    "id": "run_000000000001",
+    "deviceId": "dev_house00000001",
+    "segId": 0,
+    "name": "Front roof",
+    "ledStart": 0,
+    "ledCount": 180,
+    "points": [
+     [
+      0.0333,
+      0.5429
+     ],
+     [
+      0.3278,
+      0.2214
+     ],
+     [
+      0.6222,
+      0.5429
+     ]
+    ]
+   },
+   {
+    "id": "run_000000000002",
+    "deviceId": "dev_garage0000002",
+    "segId": 0,
+    "name": "Garage roof",
+    "ledStart": 0,
+    "ledCount": 120,
+    "points": [
+     [
+      0.5889,
+      0.6036
+     ],
+     [
+      0.7556,
+      0.4429
+     ],
+     [
+      0.9667,
+      0.6429
+     ]
+    ]
+   },
+   {
+    "id": "run_000000000003",
+    "deviceId": "dev_garage0000002",
+    "segId": 1,
+    "name": "Garage door",
+    "ledStart": 120,
+    "ledCount": 130,
+    "points": [
+     [
+      0.6444,
+      0.9357
+     ],
+     [
+      0.6444,
+      0.7286
+     ],
+     [
+      0.8722,
+      0.7286
+     ],
+     [
+      0.8722,
+      0.9357
+     ]
+    ]
+   }
+  ]
+ },
+ "autoTraceResult": {
+  "note": "What the proposed POST /api/photos/:pid/trace would return for the sample photo: deliberately a few pixels off, as a vision model would be.",
+  "lines": [
+   {
+    "points": [
+     [
+      0.0444,
+      0.525
+     ],
+     [
+      0.3194,
+      0.2429
+     ],
+     [
+      0.6083,
+      0.5536
+     ]
+    ]
+   },
+   {
+    "points": [
+     [
+      0.5722,
+      0.6179
+     ],
+     [
+      0.7667,
+      0.4286
+     ],
+     [
+      0.9583,
+      0.6679
+     ]
+    ]
+   },
+   {
+    "points": [
+     [
+      0.6583,
+      0.9357
+     ],
+     [
+      0.6528,
+      0.75
+     ],
+     [
+      0.8611,
+      0.7464
+     ],
+     [
+      0.8583,
+      0.9321
+     ]
+    ]
+   }
+  ]
+ },
+ "effects": [
+  "Solid",
+  "Blink",
+  "Breathe",
+  "Wipe",
+  "Chase 2",
+  "Chase 3",
+  "Twinkleup",
+  "Twinklefox",
+  "Colortwinkles",
+  "Colorwaves",
+  "Candle Multi",
+  "Rainbow",
+  "Solid Pattern",
+  "Solid Pattern Tri",
+  "Colorful",
+  "Running",
+  "Meteor",
+  "Palette",
+  "Pacifica"
+ ],
+ "palettes": [
+  "Default",
+  "* Random Cycle",
+  "* Color 1",
+  "* Colors 1&2",
+  "* Color Gradient",
+  "* Colors Only",
+  "Party",
+  "Cloud",
+  "Lava",
+  "Ocean",
+  "Forest",
+  "Rainbow"
+ ]
+}

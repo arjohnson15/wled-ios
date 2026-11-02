@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>JTS Lights — "Your house", interactive mockup</title>
+<!-- Interactive mockup. Made-up controllers and data; nothing here talks to real lights. -->
+<style>
+:root{--bg:#07090d;--card:#151922;--card2:#1c212c;--line:#ffffff14;--line2:#ffffff26;--fg:#eef0f5;--dim:#b3bccd;--mut:#8792a8;
+  --brand:#0090f0;--ink:#0a6fd8;--ok:#33d17a;--warn:#ffb84d;--r:20px}
+*{box-sizing:border-box;margin:0}
+html,body{background:#030406;color:var(--fg);font:14px/1.45 system-ui,-apple-system,"SF Pro Text","Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+button:disabled{opacity:.45;cursor:default}
+input,select{font:inherit;color:inherit}
+a{color:#7cc4ff}
+.page{display:flex;gap:36px;justify-content:center;align-items:flex-start;padding:30px 20px 60px;flex-wrap:wrap}
+aside{width:300px;flex:none}
+aside h1{font-size:22px;letter-spacing:-.02em;margin-bottom:6px}
+aside h2{font-size:15px;margin:20px 0 6px}
+aside p,aside li{color:var(--mut);font-size:13px}
+aside p b,aside li b{color:var(--dim)}
+aside ul{padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.try{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.try button{text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 13px;font-size:13px;color:var(--dim)}
+.try button b{color:var(--fg);display:block;font-size:14px;margin-bottom:2px}
+.try button:hover{border-color:#0090f088}
+
+.phone{width:360px;height:760px;border-radius:46px;background:var(--bg);position:relative;overflow:hidden;flex:none;
+  box-shadow:0 0 0 10px #15171c,0 0 0 11px #2a2d35,0 30px 60px -20px #000}
+.sb{height:44px;display:flex;justify-content:space-between;align-items:center;padding:0 26px;font-weight:600;font-size:14px;position:relative;z-index:5}
+.sb i{width:110px;height:30px;background:#000;border-radius:20px;position:absolute;left:50%;top:8px;transform:translateX(-50%)}
+.home-ind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:120px;height:5px;border-radius:3px;background:#ffffff99;z-index:20;pointer-events:none}
+#view{position:absolute;inset:44px 0 0 0;overflow:hidden}
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:4px 16px 40px;display:none;scrollbar-width:none}
+.screen::-webkit-scrollbar{display:none}
+.screen.on{display:block}
+.screen.tabbed{bottom:84px}
+
+.mut{color:var(--mut)} .dim{color:var(--dim)} .sm{font-size:12.5px} .xs{font-size:11px}
+.t1{font-weight:700;font-size:26px;line-height:1.1;letter-spacing:-.03em}
+.t2{font-weight:700;font-size:19px;line-height:1.2;letter-spacing:-.02em}
+.t3{font-weight:650;font-size:15px;line-height:1.25}
+.eyebrow{font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.lbl{font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin:16px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.flex{display:flex;align-items:center;gap:10px}
+.between{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.col{display:flex;flex-direction:column;gap:10px}
+.hdr{display:flex;justify-content:space-between;align-items:flex-end;margin:6px 0 12px;gap:10px}
+.btn{display:block;width:100%;border-radius:14px;padding:14px 16px;background:var(--card2);border:1px solid var(--line2);font-weight:650;font-size:15px;text-align:center;margin-top:10px}
+.btn.pri{background:linear-gradient(180deg,#159cff,var(--ink));border-color:transparent;color:#fff}
+.btn.ghost{background:none;border-color:transparent;color:var(--dim);font-weight:500}
+.row2{display:grid;grid-template-columns:1fr 1.4fr;gap:10px}
+.row2 .btn{margin-top:12px}
+.pill{border-radius:999px;padding:8px 13px;background:var(--card2);border:1px solid var(--line);font-weight:600;font-size:12.5px;color:var(--dim);white-space:nowrap}
+.pill.on{background:#0090f022;border-color:#0090f088;color:#fff}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 0}
+.chips::-webkit-scrollbar{display:none}
+.chips.wrap{flex-wrap:wrap}
+.chip{flex:none;display:inline-flex;align-items:center;border-radius:999px;padding:8px 13px 8px 9px;background:var(--card2);border:1px solid var(--line);font-weight:600;font-size:13px;color:var(--dim);white-space:nowrap}
+.chip.plain{padding-left:13px}
+.chip small{font-weight:500;color:var(--mut);margin-left:5px;font-size:11px}
+.chip .ck{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;border:1.5px solid #ffffff55;margin-right:7px;font-size:11px;line-height:1;color:#fff}
+.chip.on{background:#0090f022;border-color:#0090f0aa;color:#fff}
+.chip.on .ck{background:var(--brand);border-color:var(--brand)}
+.chip.part{border-color:#0090f088;border-style:dashed;color:#fff}
+.chip.part .ck{border-color:var(--brand);color:var(--brand)}
+.chip.sm{padding:6px 11px;font-size:12px}
+.switch{width:50px;height:30px;border-radius:15px;background:var(--ok);position:relative;flex:none;cursor:pointer;transition:background .15s}
+.switch:after{content:"";position:absolute;left:23px;top:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 4px #0005;transition:left .15s}
+.switch.off{background:#3a3f4b}.switch.off:after{left:3px}
+
+/* house pictures */
+.househost{margin:10px -16px 0;position:relative}
+.househost svg{display:block;width:100%;height:auto;touch-action:manipulation}
+.househost.mini{margin:6px 0 0;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.badge-bg{fill:#000000b0;stroke:#ffffff30}
+.badge.on .badge-bg{fill:var(--brand);stroke:none}
+.badge text{font-size:9.5px;font-weight:700;fill:#c9d0dc;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.badge.on text{fill:#fff}
+.hint{color:var(--mut);font-size:12px;margin:8px 2px 12px;min-height:16px}
+.hint b{color:var(--dim)}
+
+.bri,.tempbar{position:relative;height:46px;border-radius:16px;background:#ffffff10;border:1px solid var(--line);overflow:hidden;margin-top:12px}
+.bri .fill{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,#ffb35c44,#ffcf8a)}
+.bri input,.tempbar input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;margin:0;touch-action:pan-y}
+.bri span,.bri em{position:absolute;top:50%;transform:translateY(-50%);font-weight:650;font-size:13px;font-style:normal;pointer-events:none}
+.bri span{left:14px;color:#1b1206}.bri em{right:14px;color:var(--dim)}
+.tempbar{height:34px;border-radius:17px;background:linear-gradient(90deg,#ff8a2a,#ffd9a6,#fff,#cfe6ff)}
+.tempbar i{position:absolute;top:3px;width:26px;height:26px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 5px #0009;transform:translateX(-50%);pointer-events:none}
+
+.now .t3{margin-bottom:2px}
+.elsew{display:flex;align-items:center;gap:12px;cursor:pointer}
+.elsew.picked{border-color:#0090f0aa;background:#0090f012}
+.elsew canvas{width:100%;height:18px;display:block;margin-top:6px}
+.ckbox{width:22px;height:22px;border-radius:50%;border:1.5px solid #ffffff55;flex:none;display:grid;place-items:center;font-size:12px}
+.picked .ckbox{background:var(--brand);border-color:var(--brand)}
+
+.editchip{display:flex;align-items:center;gap:6px;width:100%;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 13px;font-size:13px;text-align:left}
+.editchip b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* looks */
+.search{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:9px 13px;margin:12px 0 10px;color:var(--mut)}
+.search input{flex:1;background:none;border:0;outline:none;min-width:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.tile{border-radius:16px;overflow:hidden;background:var(--card);border:1px solid var(--line);text-align:left;display:block}
+.tile canvas{display:block;width:100%;height:30px;background:#0a0c10}
+.tile b{display:block;padding:8px 10px 0;font-size:13px}
+.tile small{display:block;padding:1px 10px 9px;color:var(--mut);font-size:11px}
+.tile.playing{border-color:#33d17a88}
+.tile.playing small{color:var(--ok)}
+.tile.prev{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand)}
+.tile.prev small{color:#7cc4ff}
+
+/* colour */
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.slot{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px 6px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.slot i{width:32px;height:32px;border-radius:50%;box-shadow:inset 0 0 0 1px #0006,0 0 0 1px #fff3}
+.slot b{font-size:12px}.slot small{font-size:10.5px;color:var(--mut)}
+.slot.on{border-color:var(--brand);box-shadow:0 0 0 1px var(--brand)}
+.slot.unused{opacity:.5}
+.wheelwrap{position:relative;width:220px;height:220px;margin:16px auto 0}
+#wheel{width:220px;height:220px;border-radius:50%;touch-action:none;cursor:crosshair;display:block}
+.knob{position:absolute;width:30px;height:30px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 8px #000a;transform:translate(-50%,-50%);pointer-events:none}
+.swrow{display:flex;justify-content:space-between;margin-top:14px}
+.swrow button{width:30px;height:30px;border-radius:50%;box-shadow:inset 0 0 0 1px #0006,0 0 0 1px #fff2}
+
+/* tab bar */
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:84px;padding:8px 6px 26px;display:flex;justify-content:space-around;
+  background:linear-gradient(180deg,#0b0d12e6,#07090df5);backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:8}
+.tabbar[hidden]{display:none}
+.tabbar button{display:flex;flex-direction:column;align-items:center;gap:4px;font-weight:600;font-size:10.5px;color:var(--mut);width:64px}
+.tabbar svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8}
+.tabbar button.on{color:var(--brand)}
+
+/* sheet, toast */
+.dimmer{position:absolute;inset:0;background:#0008;z-index:10;opacity:0;pointer-events:none;transition:opacity .2s}
+.dimmer.on{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-height:88%;overflow-y:auto;background:#12151c;border-radius:26px 26px 0 0;z-index:11;
+  padding:10px 16px 34px;border-top:1px solid var(--line2);transform:translateY(105%);transition:transform .25s ease;scrollbar-width:none}
+.sheet.open{transform:none}
+.grab{width:40px;height:5px;border-radius:3px;background:#ffffff33;margin:0 auto 14px}
+.sheet select{width:100%;background:var(--card2);border:1px solid var(--line2);border-radius:12px;padding:11px 12px}
+.sheet canvas.strip{width:100%;height:22px;display:block;margin-top:10px;border-radius:11px}
+.check{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.check input{width:22px;height:22px;accent-color:var(--brand);flex:none}
+.check span{flex:1}
+.check small{color:var(--mut);font-size:11px}
+.cgroup{margin-top:8px}
+.selctl{display:flex;align-items:center;width:100%;padding:12px 0 8px;gap:10px;text-align:left}
+.selctl .ck{width:22px;height:22px;border-radius:50%;border:1.5px solid #ffffff55;display:grid;place-items:center;font-size:12px;flex:none}
+.selctl.on .ck{background:var(--brand);border-color:var(--brand)}
+.selctl.part .ck{border-color:var(--brand);color:var(--brand)}
+.selctl span{flex:1;font-weight:650}
+.toast{position:absolute;left:50%;bottom:100px;transform:translate(-50%,20px);background:#262b36;border:1px solid var(--line2);color:#fff;
+  padding:10px 16px;border-radius:14px;font-size:13px;z-index:30;opacity:0;pointer-events:none;transition:.2s;width:max-content;max-width:86%;text-align:center;box-shadow:0 8px 24px #000a}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* onboarding */
+.wel{padding-top:10px}
+.wel .t1{margin:6px 0 8px}
+.welpic{margin:14px -16px 12px}
+.welpic svg{display:block;width:100%}
+.steps{padding-left:20px;color:var(--mut);font-size:13px;display:flex;flex-direction:column;gap:4px}
+.steps b{color:var(--fg)}
+.cam{background:#000;padding:0}
+.camtop{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;font-weight:600}
+.camtop .link{font-size:20px;width:30px}
+.viewfinder{position:relative;margin-top:40px}
+.viewfinder svg{display:block;width:100%}
+.viewfinder:after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 50%,transparent 55%,#0008);pointer-events:none}
+.brk{position:absolute;inset:14px;border:2px solid #fff6;border-radius:6px;z-index:2;
+  -webkit-mask:linear-gradient(#000 0 0) top left/24px 24px no-repeat,linear-gradient(#000 0 0) top right/24px 24px no-repeat,linear-gradient(#000 0 0) bottom left/24px 24px no-repeat,linear-gradient(#000 0 0) bottom right/24px 24px no-repeat;
+  mask:linear-gradient(#000 0 0) top left/24px 24px no-repeat,linear-gradient(#000 0 0) top right/24px 24px no-repeat,linear-gradient(#000 0 0) bottom left/24px 24px no-repeat,linear-gradient(#000 0 0) bottom right/24px 24px no-repeat}
+.camhint{text-align:center;color:#fff;font-size:13px;margin:18px 20px 0;opacity:.85}
+.cambar{position:absolute;left:0;right:0;bottom:40px;display:flex;justify-content:space-around;align-items:center}
+.shutter{width:74px;height:74px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px #000,0 0 0 7px #fff}
+.shutter:active{transform:scale(.94)}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:9}
+.flash.go{animation:flash .45s ease-out}
+@keyframes flash{0%{opacity:.95}100%{opacity:0}}
+.steptop{display:flex;justify-content:space-between;align-items:center;margin:4px 0 10px}
+.steptop .link{color:#7cc4ff;font-size:14px}
+.stepn{font-size:12px;color:var(--mut)}
+.photo{position:relative;margin:12px -16px 10px;overflow:hidden}
+.photo svg{display:block;width:100%;touch-action:none}
+.scan{position:absolute;left:0;right:0;height:70px;top:-70px;background:linear-gradient(180deg,transparent,#0090f066 70%,#7cc4ff 72%,transparent 74%);opacity:0;pointer-events:none}
+.scan.on{opacity:1;animation:scan 1.1s linear infinite}
+@keyframes scan{from{top:-70px}to{top:100%}}
+.tline{fill:none;stroke:var(--brand);stroke-width:3.5;stroke-linejoin:round;stroke-linecap:round;filter:drop-shadow(0 0 3px #0090f0)}
+.tline.off{stroke:#ffffff80;stroke-dasharray:3 6;filter:none}
+.tline.done{stroke:var(--ok);filter:drop-shadow(0 0 3px #33d17a)}
+.tline.cur{stroke:#fff;stroke-width:5}
+.tline.blink{animation:blk .7s steps(1) infinite}
+@keyframes blk{0%{stroke:#ff3030;filter:drop-shadow(0 0 6px #ff3030)}50%{stroke:#ffffff;filter:drop-shadow(0 0 6px #fff)}}
+.thit{fill:none;stroke:transparent;stroke-width:26;stroke-linecap:round;stroke-linejoin:round;pointer-events:stroke;cursor:pointer}
+.handle{fill:#fff;stroke:var(--brand);stroke-width:2.5;cursor:grab;touch-action:none}
+.tlab{font-size:11px;font-weight:800;fill:#fff;text-anchor:middle;paint-order:stroke;stroke:#000c;stroke-width:3px;pointer-events:none}
+.endpick{fill:#ffffff30;stroke:#fff;stroke-width:2;cursor:pointer;animation:pulse 1s ease-in-out infinite}
+.endpick.green{fill:#33ff66;filter:drop-shadow(0 0 5px #33ff66)}
+@keyframes pulse{50%{opacity:.45}}
+.blinkdot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#ff3030;animation:pulse .7s steps(1) infinite;vertical-align:1px}
+
+/* On a real phone the mockup becomes the app, full screen, with the guide underneath. */
+@media (max-width:520px){
+  .page{padding:0 0 40px;gap:24px;flex-direction:column;align-items:stretch;flex-wrap:nowrap}
+  .phone{order:-1}
+  .phone{width:100vw;height:100dvh;border-radius:0;box-shadow:none}
+  .sb,.home-ind{display:none}
+  #view{inset:0}
+  .screen{padding-top:calc(8px + env(safe-area-inset-top,0px))}
+  aside{width:auto;padding:0 18px}
+}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="glow" x="-20%" y="-50%" width="140%" height="200%"><feGaussianBlur stdDeviation="2.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <linearGradient id="sky-night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#070b1c"/><stop offset=".65" stop-color="#141c3a"/><stop offset="1" stop-color="#232842"/></linearGradient>
+  <linearGradient id="sky-dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#34507e"/><stop offset=".6" stop-color="#b98a7a"/><stop offset="1" stop-color="#eab48c"/></linearGradient>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></symbol>
+  <symbol id="i-looks" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+  <symbol id="i-colour" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-time" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-setup" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></symbol>
+</defs></svg>
+
+<div class="page">
+<aside>
+  <h1>"Your house", working mockup</h1>
+  <p>Direction C, built on A's Colour and Looks pages. Everything in the phone is clickable. The controllers and the house
+  are made up, and nothing here talks to real lights. <a href="three-directions.html">← the three directions</a></p>
+  <div class="try">
+    <button data-act="photo"><b>1 · Photo → roofline</b>Take the photo, fix a corner, then match each flashing output to a line.</button>
+    <button data-act="pick"><b>2 · Pick lights on the picture</b>Tap a roofline to add it to or remove it from what you're changing.</button>
+    <button data-act="colour"><b>3 · Colour several at once</b>Drag the wheel; every picked light follows, whichever controller it's on.</button>
+    <button data-act="looks"><b>4 · Try a look on your house</b>First tap previews it on the picture, second tap puts it on the lights.</button>
+    <button data-act="copy"><b>5 · Copy to…</b>Send what one controller is showing to others, once, without syncing them.</button>
+    <button data-act="away"><b>6 · Just the lake house</b>Pick only a controller somewhere else. The house at home is left alone.</button>
+  </div>
+</aside>
+
+<div class="phone">
+  <div class="sb"><span id="clock">9:41</span><i></i><span>●●● ▮</span></div>
+  <div id="view">
+
+    <section class="screen" id="s-welcome">
+      <div class="wel">
+        <div class="eyebrow">Welcome</div>
+        <div class="t1">Put your house on screen</div>
+        <p class="dim">Take one photo from the street. The app finds the rooflines, you match them to your lights, and from then on you control the lights by tapping the house.</p>
+        <div class="welpic" id="welPic"></div>
+        <ol class="steps">
+          <li><b>Take a photo</b>, at dusk or in daylight, with every roofline in frame</li>
+          <li><b>Check the lines</b> and drag a corner if one is off</li>
+          <li><b>Match them up</b>: each output flashes and you tap where</li>
+        </ol>
+        <button class="btn pri" data-go="camera">📷 Take a photo of my house</button>
+        <button class="btn ghost" data-go="home">Skip and show me the finished app</button>
+      </div>
+    </section>
+
+    <section class="screen cam" id="s-camera">
+      <div class="camtop"><button class="link" data-go="welcome" aria-label="Close">✕</button><span>Photo of your house</span><span style="width:30px"></span></div>
+      <div class="viewfinder" id="camPhoto"><div class="brk"></div></div>
+      <div class="camhint">Stand across the street and get every roofline in</div>
+      <div class="cambar"><span class="mut sm">Library</span><button class="shutter" id="shutter" aria-label="Take photo"></button><span class="mut sm">1×</span></div>
+      <div class="flash" id="flash"></div>
+    </section>
+
+    <section class="screen" id="s-trace">
+      <div class="steptop"><button class="link" data-go="camera">‹ Retake</button><span class="stepn">Step 1 of 2</span></div>
+      <div class="t2" id="traceTitle">Finding your roofline…</div>
+      <div class="dim sm" id="traceSub"></div>
+      <div class="photo" id="tracePhoto"><div class="scan" id="scan"></div></div>
+      <div class="card sm dim" id="traceHelp" hidden>The lines are a best guess, so expect a corner or two to be a little off. <b>Drag a white dot</b> to move a corner. <b>Tap a line</b> with no lights on it to leave it out.</div>
+      <div class="row2"><button class="btn" id="traceAdd" disabled>+ Add a line</button><button class="btn pri" id="traceOk" disabled>Looks right</button></div>
+    </section>
+
+    <section class="screen" id="s-match">
+      <div class="steptop"><button class="link" data-go="trace">‹ Lines</button><span class="stepn">Step 2 of 2</span></div>
+      <div class="t2">Match them to your lights</div>
+      <div class="photo" id="matchPhoto"></div>
+      <div class="card" id="matchCard"></div>
+    </section>
+
+    <section class="screen tabbed" id="s-home">
+      <div class="hdr"><div><div class="eyebrow">Home</div><div class="t1">Your house</div></div><div class="switch" id="pwr" role="switch" aria-label="Power for the picked lights"></div></div>
+      <div class="chips ctlchips"></div>
+      <div class="househost" id="homeHouse"></div>
+      <div class="hint" id="homeHint"></div>
+      <div class="card now" id="homeNow"></div>
+      <div class="bri"><div class="fill" id="briFill"></div><span>☀</span><em id="briV"></em><input type="range" id="bri" min="1" max="100" aria-label="Brightness"></div>
+      <div class="lbl">Not on this photo</div>
+      <div class="col" id="elsewhere"></div>
+    </section>
+
+    <section class="screen tabbed" id="s-looks">
+      <div class="hdr"><div class="t1">Looks</div><button class="pill" id="looksCopy">Copy to…</button></div>
+      <button class="editchip"></button>
+      <div class="househost mini" id="looksHouse"></div>
+      <div class="hint" id="looksHint"></div>
+      <div class="search"><span>⌕</span><input id="q" placeholder="Search looks" autocomplete="off"></div>
+      <div class="chips" id="occ"></div>
+      <div class="chips" id="pace" style="margin-top:8px"></div>
+      <div class="grid2" id="tiles"></div>
+    </section>
+
+    <section class="screen tabbed" id="s-colour">
+      <div class="hdr"><div class="t1">Colour</div></div>
+      <button class="editchip"></button>
+      <div class="househost mini" id="colHouse"></div>
+      <div class="slots" id="slots"></div>
+      <div class="wheelwrap"><canvas id="wheel" width="440" height="440" aria-label="Colour wheel"></canvas><span class="knob" id="knob"></span></div>
+      <div class="tempbar"><i id="tempKnob"></i><input type="range" id="temp" min="1900" max="6500" value="2700" aria-label="Candle to daylight"></div>
+      <div class="between xs mut" style="margin-top:5px"><span>Candle</span><span>Daylight</span></div>
+      <div class="swrow" id="swatches"></div>
+    </section>
+
+    <section class="screen tabbed" id="s-times">
+      <div class="hdr"><div class="t1">Times</div></div>
+      <div class="mut sm" style="margin-bottom:14px">Not part of this mockup. It would be the schedule timeline from direction B.</div>
+      <div class="card"><div class="eyebrow" style="margin-bottom:10px">Tonight</div>
+        <div style="height:10px;border-radius:5px;background:linear-gradient(90deg,#1a1f2b 0 30%,#0090f0 30% 62%,#1a1f2b 62%)"></div>
+        <div class="between xs mut" style="margin-top:6px"><span>noon</span><span>5:12 on</span><span>11 off</span><span>6 am</span></div></div>
+      <div class="card between" style="margin-top:12px"><div><div class="t3">🌅 At sunset</div><div class="mut xs">Every day · House + Garage · Candy cane</div></div><div class="switch"></div></div>
+      <div class="card between" style="margin-top:10px"><div><div class="t3">🌙 11:00 pm</div><div class="mut xs">Every day · everything at home · Turn off</div></div><div class="switch"></div></div>
+    </section>
+
+    <section class="screen tabbed" id="s-setup">
+      <div class="hdr"><div class="t1">Setup</div></div>
+      <div class="col">
+        <button class="card between" data-go="welcome" style="text-align:left"><div><div class="t3">📷 House photo</div><div class="mut xs">Retake it or redo the matching</div></div><span class="mut">›</span></button>
+        <div class="card between"><div><div class="t3">🔗 Keep in step</div><div class="mut xs">For controllers that should always match</div></div><span class="mut">›</span></div>
+        <div class="card between"><div><div class="t3">💡 Lights &amp; wiring</div><div class="mut xs">Outputs, LED counts, power</div></div><span class="mut">›</span></div>
+        <div class="card between"><div><div class="t3">👪 Who can use it</div><div class="mut xs">Family and their controllers</div></div><span class="mut">›</span></div>
+      </div>
+      <div class="mut sm" style="margin-top:14px">The rest of Setup isn't part of this mockup.</div>
+    </section>
+
+    <nav class="tabbar" id="tabbar" hidden>
+      <button data-go="home"><svg><use href="#i-home"/></svg>House</button>
+      <button data-go="looks"><svg><use href="#i-looks"/></svg>Looks</button>
+      <button data-go="colour"><svg><use href="#i-colour"/></svg>Colour</button>
+      <button data-go="times"><svg><use href="#i-time"/></svg>Times</button>
+      <button data-go="setup"><svg><use href="#i-setup"/></svg>Setup</button>
+    </nav>
+    <div class="dimmer" id="dimmer"></div>
+    <div class="sheet" id="sheet"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+  <div class="home-ind"></div>
+</div>
+
+<aside>
+  <h2>How the photo becomes a roofline</h2>
+  <ul>
+    <li>The photo goes to the cloud. A vision model, using the account's own AI key like AI scenes do today, is asked for
+    the lines a light string runs along, as points on the picture.</li>
+    <li>Expect the corners to come back <b>close but a few pixels off</b>. That's why each line has handles; the mockup's
+    lines are deliberately a little off to show it. Snapping each line to the nearest strong edge in the photo would
+    tighten them before you see them.</li>
+    <li><b>Matching needs no AI.</b> The app lights one output at a time, the same way the LED ruler does now, and you tap
+    the line that lit. Pixel 1 shows green, so tapping that end sets the direction. The controller already knows its LED
+    counts, so nobody traces anything by hand.</li>
+    <li>With no AI key it falls back to today's tracer, where you tap the corners yourself.</li>
+  </ul>
+  <h2>Several controllers at once</h2>
+  <p>What you pick can span controllers and places. Each change is written to each controller separately, so one
+  offline box doesn't hold up the rest. <b>Nothing is kept in step afterwards</b>, which is the difference from sync.
+  When the picked lights are showing different things, the card says "Mixed".</p>
+  <h2>Copy to…</h2>
+  <p>A one-off copy where you choose what travels: the look, the colours, the speed, the brightness. It would reuse the
+  mirroring code that already maps one controller's look onto another's zones. "Keep in step" stays under Setup for
+  pairs that should always match.</p>
+</aside>
+</div>
+
+<script>
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const NS = 'http://www.w3.org/2000/svg';
+function S(tag, attrs = {}, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function H(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in attrs) {
+    if (k === 'class') e.className = attrs[k];
+    else if (k.startsWith('on')) e[k] = attrs[k];
+    else e.setAttribute(k, attrs[k]);
+  }
+  for (const c of kids.flat()) if (c != null && c !== false) e.append(c);
+  return e;
+}
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const rgb = (c) => `rgb(${c[0] | 0},${c[1] | 0},${c[2] | 0})`;
+const mix = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k, a[2] + (b[2] - a[2]) * k];
+const scale = (c, k) => [c[0] * k, c[1] * k, c[2] * k];
+const hash = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+function hsv(h, s, v) {
+  const f = (n) => { const k = (n + h / 60) % 6; return v - v * s * Math.max(0, Math.min(k, 4 - k, 1)); };
+  return [f(5) * 255, f(3) * 255, f(1) * 255];
+}
+function rgb2hsv([r, g, b]) {
+  r /= 255; g /= 255; b /= 255;
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+  let h = 0;
+  if (d) h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return [(h * 60 + 360) % 360, mx ? d / mx : 0, mx];
+}
+function kelvin(k) {
+  const t = k / 100;
+  const r = t <= 66 ? 255 : 329.7 * Math.pow(t - 60, -0.1332);
+  const g = t <= 66 ? 99.47 * Math.log(t) - 161.12 : 288.12 * Math.pow(t - 60, -0.0755);
+  const b = t >= 66 ? 255 : t <= 19 ? 0 : 138.52 * Math.log(t - 10) - 305.04;
+  return [clamp(r, 0, 255), clamp(g, 0, 255), clamp(b, 0, 255)];
+}
+const OFF = [34, 36, 42];
+
+// ---- effects: a rough stand-in for the firmware, enough to tell looks apart ----
+const FX = {
+  solid: (z) => z.cols[0],
+  candy: (z, i, t) => (Math.floor(i / 5 + t * z.sx / 50000) % 2 ? z.cols[1] : z.cols[0]),
+  tri: (z, i, t) => z.cols[Math.floor(i / 5 + t * z.sx / 50000) % 3],
+  twinkle: (z, i, t) => {
+    const s = Math.sin(t * 0.001 * (0.6 + hash(i + 9) * 1.4) * (0.3 + z.sx / 40) + hash(i) * 40);
+    return s > 0.75 ? mix(z.cols[0], z.cols[1], (s - 0.75) / 0.25) : z.cols[0];
+  },
+  minis: (z, i) => [z.cols[0], z.cols[1], z.cols[2], [255, 170, 0]][Math.floor(hash(i) * 4)],
+  wave: (z, i, t) => mix(z.cols[0], z.cols[1], (Math.sin(i * 0.18 - t * 0.0001 * z.sx) + 1) / 2),
+  breathe: (z, i, t) => scale(z.cols[0], 0.25 + 0.75 * (Math.sin(t * 0.00006 * z.sx) + 1) / 2),
+  candle: (z, i, t) => {
+    const k = (Math.sin(t * 0.004 * (0.5 + hash(i)) * z.sx / 50 + hash(i + 3) * 9) + Math.sin(t * 0.0023 * z.sx / 50 + i)) / 4 + 0.5;
+    return mix(z.cols[1], z.cols[0], k);
+  },
+  rainbow: (z, i, t) => hsv((i * 6 + t * z.sx * 0.004) % 360, 1, 1),
+};
+const ROLES = {
+  solid: ['Colour', '', ''], candy: ['Stripe', 'Stripe', ''], tri: ['Band', 'Band', 'Band'],
+  twinkle: ['Base', 'Twinkle', ''], minis: ['Bulb', 'Bulb', 'Bulb'], wave: ['From', 'To', ''],
+  breathe: ['Colour', '', ''], candle: ['Flame', 'Embers', ''], rainbow: ['', '', ''],
+};
+const R_ = [255, 30, 30], W_ = [255, 255, 255], G_ = [24, 194, 74], K_ = [0, 0, 0];
+const LOOKS = [
+  { id: 'cane', name: 'Candy cane', occ: 'Christmas', pace: 'Medium', fx: 'candy', cols: [R_, W_, K_], sx: 50 },
+  { id: 'warm', name: 'Warm white', occ: 'Everyday', pace: 'Still', fx: 'solid', cols: [[255, 170, 80], K_, K_], sx: 0 },
+  { id: 'minis', name: 'Multicolour minis', occ: 'Christmas', pace: 'Still', fx: 'minis', cols: [R_, G_, [40, 80, 255]], sx: 0 },
+  { id: 'rwg', name: 'Red, white & green', occ: 'Christmas', pace: 'Slow', fx: 'tri', cols: [R_, W_, G_], sx: 20 },
+  { id: 'icicle', name: 'Icicle twinkle', occ: 'Christmas', pace: 'Slow', fx: 'twinkle', cols: [[70, 140, 255], W_, K_], sx: 30 },
+  { id: 'yule', name: 'Yule log', occ: 'Christmas', pace: 'Medium', fx: 'candle', cols: [[255, 130, 0], [190, 20, 0], K_], sx: 60 },
+  { id: 'cauldron', name: 'Cauldron sparks', occ: 'Halloween', pace: 'Slow', fx: 'twinkle', cols: [[130, 40, 220], [70, 255, 70], K_], sx: 40 },
+  { id: 'pumpkin', name: 'Pumpkin & purple', occ: 'Halloween', pace: 'Still', fx: 'candy', cols: [[255, 100, 0], [120, 30, 200], K_], sx: 0 },
+  { id: 'stars', name: 'Stars & stripes', occ: 'July 4th', pace: 'Medium', fx: 'tri', cols: [R_, W_, [40, 80, 255]], sx: 55 },
+  { id: 'fireworks', name: 'Fireworks', occ: 'July 4th', pace: 'Fast', fx: 'twinkle', cols: [[30, 30, 110], W_, K_], sx: 100 },
+  { id: 'lake', name: 'Lake shimmer', occ: 'Everyday', pace: 'Slow', fx: 'wave', cols: [[0, 90, 255], [0, 220, 200], K_], sx: 30 },
+  { id: 'embers', name: 'Distant embers', occ: 'Everyday', pace: 'Slow', fx: 'candle', cols: [[255, 90, 0], [110, 10, 0], K_], sx: 20 },
+  { id: 'rainbow', name: 'Rainbow', occ: 'Everyday', pace: 'Fast', fx: 'rainbow', cols: [K_, K_, K_], sx: 70 },
+  { id: 'valentine', name: 'Valentine glow', occ: "Valentine's", pace: 'Slow', fx: 'breathe', cols: [[255, 40, 120], K_, K_], sx: 30 },
+];
+const stateFromLook = (id) => { const L = LOOKS.find((l) => l.id === id); return { fx: L.fx, cols: L.cols.map((c) => c.slice()), sx: L.sx, look: id, edited: false }; };
+const lookName = (z) => { const L = LOOKS.find((l) => l.id === z.look); return L ? L.name + (z.edited ? ' (changed)' : '') : 'Custom'; };
+
+// ---- controllers and zones ----
+const CTL = {
+  house: { name: 'House', place: 'home', on: true, bri: 70, zones: ['h1'] },
+  garage: { name: 'Garage', place: 'home', on: true, bri: 70, zones: ['g1', 'g2'] },
+  lake: { name: 'Lake house', place: 'away', on: true, bri: 55, zones: ['l1'] },
+  mom: { name: "Mom's porch", place: 'shared', on: false, bri: 60, zones: ['m1'], shared: true },
+};
+const ZONES = {
+  h1: { ctl: 'house', name: 'Front roof', ...stateFromLook('cane') },
+  g1: { ctl: 'garage', name: 'Garage roof', ...stateFromLook('cane') },
+  g2: { ctl: 'garage', name: 'Garage door', ...stateFromLook('warm') },
+  l1: { ctl: 'lake', name: 'Dock & deck', ...stateFromLook('lake') },
+  m1: { ctl: 'mom', name: 'Porch rail', ...stateFromLook('warm') },
+};
+const PLACES = { home: 'At home · on your photo', away: 'Lake house', shared: 'Shared with you' };
+const CANON = {
+  h1: [[12, 152], [118, 62], [224, 152]],
+  g1: [[212, 169], [272, 124], [348, 180]],
+  g2: [[232, 262], [232, 204], [314, 204], [314, 262]],
+};
+let geom = JSON.parse(JSON.stringify(CANON));
+const sel = new Set(['h1', 'g1', 'g2']);
+let preview = null, slot = 0, cur = 'welcome', sheetBuilder = null;
+const briK = (c) => 0.25 + 0.75 * c.bri / 100;
+
+// ---- the house picture ----
+function scene(mode) {
+  const n = mode === 'night';
+  const C = n
+    ? { wall: '#1a1f2c', wall2: '#171b27', roof: '#0c0f16', door: '#2a2016', door2: '#121620', ground: '#0b0e13', drive: '#141720', bush: '#09110c', win: '#f2b45a', tree: '#070a0f', line: '#ffffff07' }
+    : { wall: '#8d929c', wall2: '#838892', roof: '#3a3e47', door: '#5a3a24', door2: '#c3c5ca', ground: '#3d5634', drive: '#77777a', bush: '#2c4628', win: '#3d4a62', tree: '#28382a', line: '#00000016' };
+  let s = `<rect width="360" height="280" fill="url(#sky-${n ? 'night' : 'dusk'})"/>`;
+  if (n) {
+    for (let i = 0; i < 40; i++) s += `<circle cx="${(hash(i) * 360).toFixed(1)}" cy="${(hash(i + 50) * 120).toFixed(1)}" r="${(hash(i + 99) * 0.9 + 0.3).toFixed(2)}" fill="#fff" opacity="${(hash(i + 7) * 0.6 + 0.2).toFixed(2)}"/>`;
+    s += '<circle cx="312" cy="38" r="10" fill="#f4f1e0" opacity=".85"/>';
+  }
+  s += `<ellipse cx="352" cy="196" rx="26" ry="64" fill="${C.tree}"/><ellipse cx="6" cy="206" rx="20" ry="52" fill="${C.tree}"/>`;
+  s += `<polygon points="206,180 272,132 340,180 340,262 206,262" fill="${C.wall2}"/>`;
+  for (let y = 188; y < 262; y += 8) s += `<line x1="206" x2="340" y1="${y}" y2="${y}" stroke="${C.line}"/>`;
+  s += `<polygon points="198,182 272,124 350,182 340,182 272,134 206,182" fill="${C.roof}"/>`;
+  s += `<rect x="234" y="206" width="78" height="56" fill="${C.door2}"/>`;
+  for (const y of [220, 234, 248]) s += `<line x1="234" x2="312" y1="${y}" y2="${y}" stroke="#00000030"/>`;
+  s += `<polygon points="26,152 118,74 210,152 210,262 26,262" fill="${C.wall}"/>`;
+  for (let y = 160; y < 262; y += 8) s += `<line x1="26" x2="210" y1="${y}" y2="${y}" stroke="${C.line}"/>`;
+  s += `<polygon points="8,156 118,60 228,156 216,156 118,72 20,156" fill="${C.roof}"/>`;
+  s += `<polygon points="106,112 118,100 130,112" fill="${C.roof}"/>`;
+  s += `<rect x="44" y="176" width="36" height="40" fill="${C.win}"/><rect x="152" y="176" width="36" height="40" fill="${C.win}"/>`;
+  s += '<path d="M62 176v40M44 196h36M170 176v40M152 196h36" stroke="#00000055" stroke-width="2"/>';
+  s += `<rect x="102" y="206" width="30" height="56" fill="${C.door}"/>`;
+  s += `<rect y="262" width="360" height="18" fill="${C.ground}"/><polygon points="234,262 312,262 332,280 214,280" fill="${C.drive}"/>`;
+  s += `<ellipse cx="44" cy="263" rx="26" ry="11" fill="${C.bush}"/><ellipse cx="186" cy="263" rx="22" ry="10" fill="${C.bush}"/><ellipse cx="336" cy="264" rx="18" ry="9" fill="${C.bush}"/>`;
+  return s;
+}
+function photoSvg() { const svg = S('svg', { viewBox: '0 0 360 280' }); svg.innerHTML = scene('dusk'); return svg; }
+const ptsStr = (pts) => pts.map((p) => p.map((v) => v.toFixed(1)).join(',')).join(' ');
+function sample(pts, step) {
+  const out = []; let carry = 0;
+  for (let k = 0; k < pts.length - 1; k++) {
+    const [x1, y1] = pts[k], [x2, y2] = pts[k + 1], L = Math.hypot(x2 - x1, y2 - y1);
+    let d = carry;
+    while (d <= L) { out.push([x1 + (x2 - x1) * d / L, y1 + (y2 - y1) * d / L]); d += step; }
+    carry = d - L;
+  }
+  return out;
+}
+const midPoint = (pts) => { const s = sample(pts, 1); return s[Math.floor(s.length / 2)] || pts[0]; };
+
+const houses = [];
+function makeHouse(host, { mini = false, interactive = false, dim = false } = {}) {
+  const svg = S('svg', { viewBox: mini ? '0 40 360 240' : '0 0 360 280' });
+  svg.innerHTML = scene('night');
+  const lights = S('g', {}, svg);
+  host.appendChild(svg);
+  const inst = { host, svg, lights, interactive, dim, groups: {} };
+  houses.push(inst);
+  buildLights(inst);
+  return inst;
+}
+function buildLights(inst) {
+  inst.lights.replaceChildren();
+  inst.groups = {};
+  for (const zid of Object.keys(geom)) {
+    const pts = geom[zid];
+    const g = S('g', {}, inst.lights);
+    S('polyline', { points: ptsStr(pts), fill: 'none', stroke: '#05070a', 'stroke-width': 2.5, 'stroke-linejoin': 'round' }, g);
+    const glow = S('g', { filter: 'url(#glow)' }, g);
+    const dots = sample(pts, 6.5).map(([x, y]) => S('circle', { cx: x.toFixed(1), cy: y.toFixed(1), r: 2.3 }, glow));
+    let badge = null;
+    if (inst.interactive) {
+      const hit = S('polyline', { points: ptsStr(pts), class: 'thit' }, g);
+      hit.addEventListener('click', () => toggleZone(zid));
+      const [mx, my] = midPoint(pts);
+      const bg = S('g', { class: 'badge', style: 'cursor:pointer' }, g);
+      bg.addEventListener('click', () => toggleZone(zid));
+      const rect = S('rect', { class: 'badge-bg', y: my - 22, height: 17, rx: 8.5 }, bg);
+      const tx = S('text', { x: mx, y: my - 13.5 }, bg);
+      badge = { bg, rect, tx, mx };
+    }
+    inst.groups[zid] = { g, dots, badge };
+  }
+}
+const shownState = (zid) => (preview && sel.has(zid) ? preview : ZONES[zid]);
+function paintHouse(inst, t) {
+  for (const zid in inst.groups) {
+    const { g, dots } = inst.groups[zid];
+    const z = shownState(zid), c = CTL[ZONES[zid].ctl], k = briK(c), f = FX[z.fx];
+    for (let i = 0; i < dots.length; i++) dots[i].setAttribute('fill', rgb(c.on ? scale(f(z, i, t), k) : OFF));
+    g.style.opacity = inst.dim && sel.size && !sel.has(zid) ? 0.4 : 1;
+  }
+}
+function updateBadges() {
+  for (const inst of houses) for (const zid in inst.groups) {
+    const b = inst.groups[zid].badge;
+    if (!b) continue;
+    const on = sel.has(zid);
+    const text = (on ? '✓ ' : '') + ZONES[zid].name;
+    b.tx.textContent = text;
+    const w = text.length * 5.6 + 16;
+    b.rect.setAttribute('x', b.mx - w / 2);
+    b.rect.setAttribute('width', w);
+    b.bg.classList.toggle('on', on);
+  }
+}
+
+// ---- small strips (tiles, rows, sheets) ----
+let strips = [];
+const addStrip = (cv, get) => strips.push({ cv, get });
+const pruneStrips = () => { strips = strips.filter((s) => s.cv.isConnected); };
+function paintStrip(cv, { z, on, k }, t) {
+  const ctx = cv.getContext('2d'), w = cv.width, h = cv.height;
+  ctx.fillStyle = '#0a0c10'; ctx.fillRect(0, 0, w, h);
+  const n = Math.max(8, Math.round(w / (h * 0.55))), gap = w / n, r = Math.min(gap * 0.32, h * 0.28);
+  for (let i = 0; i < n; i++) {
+    const c = rgb(on ? scale(FX[z.fx](z, i, t), k) : OFF);
+    ctx.fillStyle = c; ctx.shadowColor = c; ctx.shadowBlur = on ? r * 2.2 : 0;
+    ctx.beginPath(); ctx.arc(gap * (i + 0.5), h / 2, r, 0, 7); ctx.fill();
+  }
+  ctx.shadowBlur = 0;
+}
+function frame(t) {
+  for (const h of houses) if (h.host.offsetParent !== null) paintHouse(h, t);
+  for (const s of strips) if (s.cv.offsetParent !== null) paintStrip(s.cv, s.get(), t);
+  requestAnimationFrame(frame);
+}
+
+// ---- selection ----
+const onPhoto = () => Object.keys(geom);
+const notOnPhoto = () => Object.keys(ZONES).filter((z) => !geom[z]);
+function toggleZone(z) { sel.has(z) ? sel.delete(z) : sel.add(z); preview = null; refreshAll(); }
+function toggleCtl(c) {
+  const zs = CTL[c].zones, all = zs.every((z) => sel.has(z));
+  zs.forEach((z) => (all ? sel.delete(z) : sel.add(z)));
+  preview = null; refreshAll();
+}
+const selCtls = () => Object.keys(CTL).filter((c) => CTL[c].zones.some((z) => sel.has(z)));
+const focusZone = () => Object.keys(ZONES).find((z) => sel.has(z)) || null;
+function ctlLabel(c) {
+  const zs = CTL[c].zones, picked = zs.filter((z) => sel.has(z));
+  return picked.length === zs.length ? CTL[c].name : `${CTL[c].name} (${picked.map((z) => ZONES[z].name.replace(/^Garage /, '').toLowerCase()).join(', ')})`;
+}
+function selShort() {
+  const cs = selCtls();
+  if (!cs.length) return '';
+  if (cs.length > 2) return `${cs.length} controllers`;
+  return cs.map(ctlLabel).join(' + ');
+}
+function selLong() {
+  const cs = selCtls().map(ctlLabel);
+  return cs.length <= 1 ? cs.join('') : cs.slice(0, -1).join(', ') + ' and ' + cs[cs.length - 1];
+}
+function renderChips(host) {
+  host.replaceChildren(...Object.keys(CTL).map((c) => {
+    const zs = CTL[c].zones, n = zs.filter((z) => sel.has(z)).length;
+    const cls = n === zs.length ? ' on' : n ? ' part' : '';
+    return H('button', { class: 'chip' + cls, onclick: () => toggleCtl(c) },
+      H('span', { class: 'ck' }, n === zs.length ? '✓' : n ? '–' : ''), CTL[c].name,
+      CTL[c].place !== 'home' ? H('small', {}, CTL[c].shared ? 'shared' : 'away') : null);
+  }));
+}
+function renderEditChips() {
+  for (const b of $$('.editchip')) {
+    b.replaceChildren(H('span', { class: 'mut' }, 'Changing'), H('b', {}, selShort() || 'nothing yet'), H('span', { class: 'mut' }, 'Pick ▾'));
+    b.onclick = openSelect;
+  }
+}
+
+// ---- home ----
+function renderHomeNow() {
+  const host = $('#homeNow');
+  if (!sel.size) { host.replaceChildren(H('div', { class: 'dim sm' }, 'Nothing picked. Tap a roofline on the picture, or a name above.')); return; }
+  const names = [...new Set([...sel].map((z) => lookName(ZONES[z])))];
+  const title = names.length === 1 ? names[0] : `Mixed: ${names.length} different looks`;
+  const sub = names.length === 1 ? `On ${selShort()}` : names.join(' · ');
+  host.replaceChildren(H('div', { class: 't3' }, title), H('div', { class: 'mut xs' }, sub),
+    H('div', { class: 'flex', style: 'gap:8px;margin-top:10px' },
+      H('button', { class: 'pill on', onclick: () => go('looks') }, 'Change look ›'),
+      H('button', { class: 'pill', onclick: () => go('colour') }, 'Colour'),
+      H('button', { class: 'pill', onclick: openCopy }, 'Copy to…')));
+}
+function renderHint() {
+  $('#homeHint').innerHTML = sel.size
+    ? `Changes go to <b>${selLong()}</b>. Tap a line on the picture to add or remove it.`
+    : 'Tap the lights on the picture to pick what to change.';
+  const allHere = onPhoto().length && onPhoto().every((z) => sel.has(z));
+  if (sel.size && !allHere && onPhoto().some((z) => sel.has(z))) $('#homeHint').innerHTML += ' The dimmed lines are left as they are.';
+}
+function renderBri() {
+  const cs = selCtls();
+  const v = cs.length ? Math.round(cs.reduce((a, c) => a + CTL[c].bri, 0) / cs.length) : 0;
+  $('#bri').value = v; $('#bri').disabled = !cs.length;
+  $('#briFill').style.width = v + '%';
+  $('#briV').textContent = cs.length ? v + '%' : '–';
+}
+function renderPwr() { $('#pwr').classList.toggle('off', !selCtls().some((c) => CTL[c].on)); }
+function renderElsewhere() {
+  const zs = notOnPhoto();
+  $('#elsewhere').replaceChildren(...zs.map((z) => {
+    const c = CTL[ZONES[z].ctl];
+    const cv = H('canvas', { width: 600, height: 36 });
+    addStrip(cv, () => ({ z: shownState(z), on: c.on, k: briK(c) }));
+    const sw = H('div', { class: 'switch' + (c.on ? '' : ' off'), role: 'switch',
+      onclick: (e) => { e.stopPropagation(); c.on = !c.on; refreshAll(); } });
+    return H('div', { class: 'card elsew' + (sel.has(z) ? ' picked' : ''), onclick: () => toggleZone(z) },
+      H('span', { class: 'ckbox' }, sel.has(z) ? '✓' : ''),
+      H('div', { style: 'flex:1;min-width:0' }, H('div', { class: 't3' }, `${c.name}`),
+        H('div', { class: 'mut xs' }, `${ZONES[z].name} · ${c.on ? lookName(ZONES[z]) : 'off'}${c.shared ? ' · shared with you' : ''}`), cv),
+      sw);
+  }));
+  if (!zs.length) $('#elsewhere').append(H('div', { class: 'mut sm' }, 'Everything is on the photo.'));
+}
+
+// ---- looks ----
+let occF = 'All', paceF = 'Any', q = '';
+function renderFilters() {
+  const occs = ['All', ...new Set(LOOKS.map((l) => l.occ))];
+  $('#occ').replaceChildren(...occs.map((o) => H('button', { class: 'chip plain' + (o === occF ? ' on' : ''), onclick: () => { occF = o; renderFilters(); renderTiles(); } }, o)));
+  $('#pace').replaceChildren(...['Any', 'Still', 'Slow', 'Medium', 'Fast'].map((p) => H('button', { class: 'chip plain sm' + (p === paceF ? ' on' : ''), onclick: () => { paceF = p; renderFilters(); renderTiles(); } }, p === 'Any' ? 'Any pace' : p)));
+}
+function renderTiles() {
+  const list = LOOKS.filter((l) => (occF === 'All' || l.occ === occF) && (paceF === 'Any' || l.pace === paceF) && l.name.toLowerCase().includes(q));
+  $('#tiles').replaceChildren(...list.map((l) => {
+    const cv = H('canvas', { width: 300, height: 44 });
+    addStrip(cv, () => ({ z: l, on: true, k: 1 }));
+    const prev = preview && preview.id === l.id;
+    const playing = sel.size && [...sel].every((z) => ZONES[z].look === l.id && !ZONES[z].edited);
+    return H('button', { class: 'tile' + (prev ? ' prev' : '') + (playing ? ' playing' : ''), onclick: () => tapLook(l) },
+      cv, H('b', {}, l.name), H('small', {}, prev ? 'Tap again to use it' : playing ? '● Showing now' : `${l.occ} · ${l.pace}`));
+  }));
+  if (!list.length) $('#tiles').append(H('div', { class: 'mut sm' }, 'Nothing matches.'));
+  pruneStrips();
+}
+function tapLook(l) {
+  if (!sel.size) { toast('Pick some lights first'); openSelect(); return; }
+  if (preview && preview.id === l.id) {
+    for (const z of sel) Object.assign(ZONES[z], stateFromLook(l.id));
+    preview = null;
+    toast(`${l.name} is on ${selShort()}`);
+  } else preview = l;
+  refreshAll();
+}
+function renderLooksHint() {
+  $('#looksHint').innerHTML = !sel.size ? 'Pick some lights above first.'
+    : preview ? `Showing <b>${preview.name}</b> on the picture only. Tap it again to put it on ${selShort()}.`
+      : 'Tap a look to see it on your house. Tap it again to use it.';
+}
+
+// ---- colour ----
+function drawWheel() {
+  const cv = $('#wheel'), ctx = cv.getContext('2d'), N = cv.width, R = N / 2;
+  const img = ctx.createImageData(N, N);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const dx = x - R + 0.5, dy = y - R + 0.5, d = Math.hypot(dx, dy), o = (y * N + x) * 4;
+    if (d > R) continue;
+    const c = hsv((Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360, d / R, 1);
+    img.data[o] = c[0]; img.data[o + 1] = c[1]; img.data[o + 2] = c[2];
+    img.data[o + 3] = d > R - 1.5 ? 255 * (R - d) / 1.5 : 255;
+  }
+  ctx.putImageData(img, 0, 0);
+}
+function renderSlots() {
+  const fz = focusZone();
+  if (!fz) { $('#slots').replaceChildren(H('div', { class: 'mut sm', style: 'grid-column:1/-1' }, 'Pick some lights first.')); return; }
+  const z = ZONES[fz], roles = ROLES[z.fx];
+  $('#slots').replaceChildren(...[0, 1, 2].map((i) => H('button', {
+    class: 'slot' + (i === slot ? ' on' : '') + (roles[i] ? '' : ' unused'),
+    onclick: () => { slot = i; renderSlots(); placeKnob(); },
+  }, H('i', { style: `background:${rgb(z.cols[i])}` }), H('b', {}, `Colour ${i + 1}`), H('small', {}, roles[i] || 'not used now'))));
+}
+function placeKnob() {
+  const fz = focusZone(), k = $('#knob');
+  if (!fz) { k.style.display = 'none'; return; }
+  k.style.display = '';
+  const c = ZONES[fz].cols[slot], [h, s] = rgb2hsv(c), a = h * Math.PI / 180;
+  k.style.left = 110 + Math.cos(a) * s * 110 + 'px';
+  k.style.top = 110 + Math.sin(a) * s * 110 + 'px';
+  k.style.background = rgb(c);
+}
+let rainbowWarned = false;
+function applyColour(c) {
+  if (!sel.size) { toast('Pick some lights first'); return; }
+  for (const z of sel) { ZONES[z].cols[slot] = c.slice(); ZONES[z].edited = true; }
+  if (!rainbowWarned && [...sel].some((z) => ZONES[z].fx === 'rainbow')) { rainbowWarned = true; toast('Rainbow makes its own colours, so those lights won\'t change'); }
+  renderSlots(); placeKnob();
+}
+function wireColour() {
+  const wheel = $('#wheel');
+  let down = false;
+  const pick = (e) => {
+    const r = wheel.getBoundingClientRect(), R = r.width / 2;
+    const dx = e.clientX - r.left - R, dy = e.clientY - r.top - R;
+    applyColour(hsv((Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360, Math.min(1, Math.hypot(dx, dy) / R), 1));
+  };
+  wheel.addEventListener('pointerdown', (e) => { down = true; wheel.setPointerCapture(e.pointerId); pick(e); });
+  wheel.addEventListener('pointermove', (e) => { if (down) pick(e); });
+  wheel.addEventListener('pointerup', () => { down = false; });
+  wheel.addEventListener('pointercancel', () => { down = false; });
+  const temp = $('#temp');
+  const tk = () => { $('#tempKnob').style.left = `calc(13px + (100% - 26px) * ${(temp.value - 1900) / 4600})`; $('#tempKnob').style.background = rgb(kelvin(+temp.value)); };
+  temp.addEventListener('input', () => { tk(); applyColour(kelvin(+temp.value)); });
+  tk();
+  const SW = [[255, 170, 80], [255, 217, 166], W_, R_, G_, [40, 80, 255], [138, 43, 226], [255, 110, 0]];
+  $('#swatches').replaceChildren(...SW.map((c) => H('button', { style: `background:${rgb(c)}`, 'aria-label': 'Swatch', onclick: () => applyColour(c) })));
+}
+
+// ---- sheets: pick lights, copy to ----
+function openSheet(builder) { sheetBuilder = builder; renderSheet(); $('#sheet').classList.add('open'); $('#dimmer').classList.add('on'); $('#sheet').scrollTop = 0; }
+function renderSheet() { if (!sheetBuilder) return; $('#sheet').replaceChildren(H('div', { class: 'grab' }), ...sheetBuilder().filter(Boolean)); pruneStrips(); }
+function closeSheet() { sheetBuilder = null; $('#sheet').classList.remove('open'); $('#dimmer').classList.remove('on'); }
+
+function openSelect() {
+  openSheet(() => {
+    const out = [H('div', { class: 't2' }, 'Which lights?'),
+      H('div', { class: 'dim sm', style: 'margin-top:4px' }, 'Changes go to everything ticked, on whichever controller it is. Anything you don\'t change stays as it is on each one.'),
+      H('div', { class: 'chips wrap', style: 'margin-top:12px' },
+        H('button', { class: 'chip plain', onclick: () => { sel.clear(); onPhoto().forEach((z) => sel.add(z)); refreshAll(); } }, 'Everything on the photo'),
+        H('button', { class: 'chip plain', onclick: () => { Object.keys(ZONES).forEach((z) => sel.add(z)); refreshAll(); } }, 'Everything'),
+        H('button', { class: 'chip plain', onclick: () => { sel.clear(); refreshAll(); } }, 'None'))];
+    for (const p of Object.keys(PLACES)) {
+      const cs = Object.keys(CTL).filter((c) => CTL[c].place === p);
+      out.push(H('div', { class: 'lbl' }, PLACES[p]));
+      for (const c of cs) {
+        const zs = CTL[c].zones, n = zs.filter((z) => sel.has(z)).length;
+        out.push(H('button', { class: 'selctl' + (n === zs.length ? ' on' : n ? ' part' : ''), onclick: () => toggleCtl(c) },
+          H('span', { class: 'ck' }, n === zs.length ? '✓' : n ? '–' : ''), H('span', {}, CTL[c].name),
+          H('small', { class: 'mut' }, CTL[c].on ? lookName(ZONES[zs[0]]) : 'off')));
+        if (zs.length > 1) out.push(H('div', { class: 'chips wrap', style: 'padding-left:32px' },
+          ...zs.map((z) => H('button', { class: 'chip sm' + (sel.has(z) ? ' on' : ''), onclick: () => toggleZone(z) }, H('span', { class: 'ck' }, sel.has(z) ? '✓' : ''), ZONES[z].name))));
+      }
+    }
+    out.push(H('button', { class: 'btn pri', onclick: closeSheet }, 'Done'));
+    return out;
+  });
+}
+
+let copyState = null;
+function openCopy() {
+  copyState = { from: focusZone() || 'h1', to: new Set(), what: { look: true, cols: true, speed: true, bri: false } };
+  openSheet(buildCopy);
+}
+function buildCopy() {
+  const cs = copyState, f = ZONES[cs.from];
+  const from = H('select', { onchange: (e) => { cs.from = e.target.value; cs.to.delete(cs.from); renderSheet(); } },
+    ...Object.keys(ZONES).map((z) => { const o = H('option', { value: z }, `${CTL[ZONES[z].ctl].name} · ${ZONES[z].name}`); o.selected = z === cs.from; return o; }));
+  const cv = H('canvas', { width: 600, height: 36, class: 'strip' });
+  addStrip(cv, () => ({ z: ZONES[cs.from], on: true, k: 1 }));
+  const what = [['look', 'The look'], ['cols', 'Colours'], ['speed', 'Speed'], ['bri', 'Brightness']].map(([k, l]) =>
+    H('button', { class: 'chip' + (cs.what[k] ? ' on' : ''), onclick: () => { cs.what[k] = !cs.what[k]; renderSheet(); } }, H('span', { class: 'ck' }, cs.what[k] ? '✓' : ''), l));
+  const targets = Object.keys(CTL).map((c) => {
+    const zs = CTL[c].zones.filter((z) => z !== cs.from);
+    if (!zs.length) return null;
+    return H('div', { class: 'cgroup' }, H('div', { class: 'xs mut' }, CTL[c].name + (CTL[c].shared ? ' · shared with you' : '')),
+      ...zs.map((z) => {
+        const box = H('input', { type: 'checkbox' });
+        box.checked = cs.to.has(z);
+        box.onchange = () => { box.checked ? cs.to.add(z) : cs.to.delete(z); renderSheet(); };
+        return H('label', { class: 'check' }, box, H('span', {}, ZONES[z].name), H('small', {}, CTL[c].on ? lookName(ZONES[z]) : 'off'));
+      }));
+  });
+  const nothing = !Object.values(cs.what).some(Boolean);
+  const btn = H('button', { class: 'btn pri', onclick: doCopy },
+    nothing ? 'Choose what to copy' : cs.to.size ? `Copy to ${cs.to.size} light${cs.to.size === 1 ? '' : 's'}` : 'Tick where to copy it');
+  btn.disabled = nothing || !cs.to.size;
+  return [H('div', { class: 't2' }, 'Copy to…'),
+    H('div', { class: 'lbl' }, 'From'), from, cv, H('div', { class: 'mut xs', style: 'margin-top:4px' }, lookName(f)),
+    H('div', { class: 'lbl' }, 'What to copy'), H('div', { class: 'chips wrap' }, ...what),
+    H('div', { class: 'lbl' }, 'To'), ...targets,
+    btn, H('div', { class: 'mut xs', style: 'margin-top:10px;text-align:center' }, 'A one-off copy. They won\'t stay in step afterwards; that\'s "Keep in step" in Setup.')];
+}
+function doCopy() {
+  const cs = copyState, f = ZONES[cs.from], w = cs.what;
+  const names = [];
+  for (const z of cs.to) {
+    const t = ZONES[z];
+    if (w.look) { t.fx = f.fx; t.look = f.look; }
+    if (w.cols) t.cols = f.cols.map((c) => c.slice());
+    if (w.speed) t.sx = f.sx;
+    t.edited = !(w.look && w.cols && w.speed) || f.edited;
+    if (w.bri) CTL[t.ctl].bri = CTL[f.ctl].bri;
+    CTL[t.ctl].on = true;
+    names.push(`${CTL[t.ctl].name} ${t.name.toLowerCase()}`);
+  }
+  closeSheet(); refreshAll();
+  toast(`Copied to ${names.join(', ')}`);
+}
+
+// ---- photo -> lines ----
+const LET = { h1: 'A', g1: 'B', g2: 'C' };
+const JITTER = { h1: [[4, -5], [-3, 6], [-5, 3]], g1: [[-6, 4], [4, -4], [-3, 7]], g2: [[5, 0], [3, 6], [-4, 5], [-5, -1]] };
+let traced = {}, removed = new Set(), traceSvg = null, traceEls = {}, traceTimer = null;
+function toSvg(svg, ev) { const p = svg.createSVGPoint(); p.x = ev.clientX; p.y = ev.clientY; return p.matrixTransform(svg.getScreenCTM().inverse()); }
+function startTrace() {
+  traced = {};
+  for (const z in CANON) traced[z] = CANON[z].map((p, i) => [p[0] + JITTER[z][i][0], p[1] + JITTER[z][i][1]]);
+  removed = new Set();
+  const host = $('#tracePhoto');
+  host.querySelector('svg')?.remove();
+  traceSvg = photoSvg();
+  host.prepend(traceSvg);
+  $('#scan').classList.add('on');
+  $('#traceTitle').textContent = 'Finding your roofline…';
+  $('#traceSub').textContent = 'Looking for the edges a string of lights would run along.';
+  $('#traceHelp').hidden = true;
+  $('#traceOk').disabled = $('#traceAdd').disabled = true;
+  clearTimeout(traceTimer);
+  traceTimer = setTimeout(() => {
+    $('#scan').classList.remove('on');
+    $('#traceHelp').hidden = false;
+    $('#traceOk').disabled = $('#traceAdd').disabled = false;
+    drawTrace(true);
+  }, 2000);
+}
+function drawTrace(animate) {
+  traceSvg.querySelector('.ov')?.remove();
+  const ov = S('g', { class: 'ov' }, traceSvg);
+  traceEls = {};
+  for (const z in traced) {
+    const pts = traced[z], off = removed.has(z);
+    const line = S('polyline', { points: ptsStr(pts), class: 'tline' + (off ? ' off' : '') }, ov);
+    if (animate) {
+      const L = sample(pts, 1).length;
+      line.style.strokeDasharray = L; line.style.strokeDashoffset = L;
+      requestAnimationFrame(() => requestAnimationFrame(() => { line.style.transition = 'stroke-dashoffset .9s ease'; line.style.strokeDashoffset = 0; }));
+      setTimeout(() => { line.style.strokeDasharray = ''; line.style.strokeDashoffset = ''; line.style.transition = ''; }, 1000);
+    }
+    const hit = S('polyline', { points: ptsStr(pts), class: 'thit' }, ov);
+    hit.addEventListener('click', () => { removed.has(z) ? removed.delete(z) : removed.add(z); drawTrace(false); });
+    const [mx, my] = midPoint(pts);
+    const lab = S('text', { x: mx, y: my - 10, class: 'tlab' }, ov);
+    lab.textContent = off ? `${LET[z]} · left out` : LET[z];
+    const handles = off ? [] : pts.map((p, k) => {
+      const h = S('circle', { cx: p[0], cy: p[1], r: 7, class: 'handle' }, ov);
+      h.addEventListener('pointerdown', (e) => dragHandle(e, z, k, h));
+      return h;
+    });
+    traceEls[z] = { line, hit, lab, handles };
+  }
+  const n = Object.keys(traced).length - removed.size;
+  $('#traceTitle').textContent = `Found ${n} light line${n === 1 ? '' : 's'}`;
+  $('#traceSub').textContent = 'Check they sit where your lights are.';
+  $('#traceOk').disabled = !n;
+}
+function dragHandle(e, z, k, h) {
+  e.preventDefault(); e.stopPropagation();
+  h.setPointerCapture(e.pointerId);
+  const move = (ev) => {
+    const p = toSvg(traceSvg, ev);
+    traced[z][k] = [clamp(p.x, 0, 360), clamp(p.y, 0, 280)];
+    h.setAttribute('cx', traced[z][k][0]); h.setAttribute('cy', traced[z][k][1]);
+    const s = ptsStr(traced[z]);
+    traceEls[z].line.setAttribute('points', s); traceEls[z].hit.setAttribute('points', s);
+    const [mx, my] = midPoint(traced[z]);
+    traceEls[z].lab.setAttribute('x', mx); traceEls[z].lab.setAttribute('y', my - 10);
+  };
+  const up = () => { h.removeEventListener('pointermove', move); h.removeEventListener('pointerup', up); h.removeEventListener('pointercancel', up); };
+  h.addEventListener('pointermove', move); h.addEventListener('pointerup', up); h.addEventListener('pointercancel', up);
+}
+
+const OUTPUTS = [{ zid: 'h1', ctl: 'house', out: 1 }, { zid: 'g1', ctl: 'garage', out: 1 }, { zid: 'g2', ctl: 'garage', out: 2 }];
+let mStep = 0, mPhase = 'line', mAssign = {}, mLine = null, matchSvg = null;
+function startMatch() {
+  mStep = 0; mPhase = 'line'; mAssign = {}; mLine = null;
+  matchSvg = photoSvg();
+  $('#matchPhoto').replaceChildren(matchSvg);
+  drawMatch();
+}
+function drawMatch() {
+  matchSvg.querySelector('.ov')?.remove();
+  const ov = S('g', { class: 'ov' }, matchSvg);
+  const out = OUTPUTS[mStep];
+  const owner = (z) => OUTPUTS.find((o) => mAssign[o.zid] && mAssign[o.zid].line === z);
+  for (const z in traced) {
+    if (removed.has(z)) continue;
+    const pts = traced[z], own = owner(z), isCur = mPhase === 'end' && mLine === z;
+    const line = S('polyline', { points: ptsStr(pts), class: 'tline' + (own ? ' done' : '') + (isCur ? ' cur' : '') }, ov);
+    // In real life you look at the house; here the line that output really drives blinks instead.
+    if (out && mPhase === 'line' && z === out.zid && !own) line.classList.add('blink');
+    if (out && mPhase === 'line' && !own) {
+      const hit = S('polyline', { points: ptsStr(pts), class: 'thit' }, ov);
+      hit.addEventListener('click', () => { mLine = z; mPhase = 'end'; drawMatch(); });
+    }
+    const [mx, my] = midPoint(pts);
+    S('text', { x: mx, y: my - 10, class: 'tlab' }, ov).textContent = own ? `${CTL[own.ctl].name} ${own.out}` : LET[z];
+  }
+  if (out && mPhase === 'end') {
+    const pts = traced[mLine];
+    [pts[0], pts[pts.length - 1]].forEach((p, i) => {
+      const c = S('circle', { cx: p[0], cy: p[1], r: 11, class: 'endpick' + (i === 0 ? ' green' : '') }, ov);
+      c.addEventListener('click', () => { mAssign[out.zid] = { line: mLine, rev: i === 1 }; mStep++; mPhase = 'line'; mLine = null; drawMatch(); });
+    });
+  }
+  renderMatchCard();
+}
+function renderMatchCard() {
+  const out = OUTPUTS[mStep], card = $('#matchCard');
+  if (!out) {
+    const done = OUTPUTS.filter((o) => mAssign[o.zid]);
+    const ctls = new Set(done.map((o) => o.ctl)).size;
+    card.replaceChildren(H('div', { class: 't3' }, `All matched: ${done.length} line${done.length === 1 ? '' : 's'} on ${ctls} controller${ctls === 1 ? '' : 's'}`),
+      H('div', { class: 'dim sm', style: 'margin-top:4px' }, 'Your lights now draw on the picture, in the right order. You can redo this any time under Setup → House photo.'),
+      H('button', { class: 'btn pri', onclick: finishMatch }, 'Open my house'));
+    return;
+  }
+  const step = H('div', { class: 'xs mut' }, `Output ${mStep + 1} of ${OUTPUTS.length}`);
+  if (mPhase === 'line') {
+    card.replaceChildren(step,
+      H('div', { class: 't3', style: 'margin:4px 0' }, H('span', { class: 'blinkdot' }), ` ${CTL[out.ctl].name}, output ${out.out}, is flashing now`),
+      H('div', { class: 'dim sm' }, 'Look at your house and tap the line on the picture that\'s flashing.'),
+      H('div', { class: 'mut xs', style: 'margin-top:6px' }, 'In this mockup the right line blinks on the picture.'),
+      H('button', { class: 'btn ghost', onclick: () => { mAssign[out.zid] = null; mStep++; drawMatch(); } }, 'It isn\'t on this photo'));
+  } else {
+    card.replaceChildren(step,
+      H('div', { class: 't3', style: 'margin:4px 0' }, 'Which end is the green light?'),
+      H('div', { class: 'dim sm' }, 'The first light on that output has turned green. Tap that end, so effects run the right way along the line.'),
+      H('button', { class: 'btn ghost', onclick: () => { mPhase = 'line'; mLine = null; drawMatch(); } }, '‹ That was the wrong line'));
+  }
+}
+function finishMatch() {
+  geom = {};
+  for (const o of OUTPUTS) {
+    const a = mAssign[o.zid];
+    if (!a) continue;
+    const p = traced[a.line].map((x) => x.slice());
+    if (a.rev) p.reverse();
+    geom[o.zid] = p;
+  }
+  houses.forEach(buildLights);
+  sel.clear(); onPhoto().forEach((z) => sel.add(z));
+  go('home');
+  toast('Your house is set up. Tap a roofline to pick it.');
+}
+
+// ---- navigation ----
+function go(name) {
+  if (cur === 'looks' && name !== 'looks') preview = null;
+  cur = name;
+  for (const s of $$('.screen')) s.classList.toggle('on', s.id === 's-' + name);
+  $('#tabbar').hidden = !$('#s-' + name).classList.contains('tabbed');
+  for (const b of $$('#tabbar button')) b.classList.toggle('on', b.dataset.go === name);
+  closeSheet();
+  $('#s-' + name).scrollTop = 0;
+  if (name === 'match' && !matchSvg) startMatch();
+  refreshAll();
+}
+function refreshAll() {
+  $$('.ctlchips').forEach(renderChips);
+  renderEditChips(); updateBadges(); renderHomeNow(); renderHint(); renderBri(); renderPwr();
+  renderElsewhere(); renderSlots(); placeKnob(); renderTiles(); renderLooksHint(); renderSheet();
+  pruneStrips();
+}
+function toast(msg) {
+  const t = $('#toast');
+  t.textContent = msg; t.classList.add('on');
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 2800);
+}
+const ACTS = {
+  photo: () => go('welcome'),
+  pick: () => { sel.clear(); onPhoto().forEach((z) => sel.add(z)); go('home'); toast('Try tapping the garage door on the picture'); },
+  colour: () => { if (!sel.size) onPhoto().forEach((z) => sel.add(z)); go('colour'); },
+  looks: () => { if (!sel.size) onPhoto().forEach((z) => sel.add(z)); go('looks'); },
+  copy: () => { go('home'); openCopy(); },
+  away: () => { sel.clear(); sel.add('l1'); go('colour'); toast('Only the lake house is picked, so home is left alone'); },
+};
+
+// ---- start ----
+makeHouse($('#welPic'));
+makeHouse($('#homeHouse'), { interactive: true, dim: true });
+makeHouse($('#looksHouse'), { mini: true, dim: true });
+makeHouse($('#colHouse'), { mini: true, dim: true });
+$('#camPhoto').prepend(photoSvg());
+drawWheel(); wireColour(); renderFilters();
+document.addEventListener('click', (e) => {
+  const g = e.target.closest('[data-go]'); if (g) go(g.dataset.go);
+  const a = e.target.closest('[data-act]'); if (a) { ACTS[a.dataset.act](); $('.phone').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+});
+$('#dimmer').addEventListener('click', closeSheet);
+$('#shutter').addEventListener('click', () => {
+  const f = $('#flash'); f.classList.remove('go'); void f.offsetWidth; f.classList.add('go');
+  setTimeout(() => { matchSvg = null; go('trace'); startTrace(); }, 250);
+});
+$('#traceOk').addEventListener('click', () => { matchSvg = null; go('match'); });
+$('#traceAdd').addEventListener('click', () => toast('In the app: drag from one corner to the next to add a line'));
+$('#looksCopy').addEventListener('click', openCopy);
+$('#q').addEventListener('input', (e) => { q = e.target.value.trim().toLowerCase(); renderTiles(); });
+$('#bri').addEventListener('input', (e) => { for (const c of selCtls()) CTL[c].bri = +e.target.value; renderBri(); });
+$('#pwr').addEventListener('click', () => { const to = !selCtls().some((c) => CTL[c].on); selCtls().forEach((c) => (CTL[c].on = to)); refreshAll(); toast(`${selShort()} turned ${to ? 'on' : 'off'}`); });
+const tick = () => { const d = new Date(); $('#clock').textContent = `${d.getHours() % 12 || 12}:${String(d.getMinutes()).padStart(2, '0')}`; };
+tick(); setInterval(tick, 30000);
+go('welcome');
+requestAnimationFrame(frame);
+</script>
+</body></html>

@@ -1,0 +1,2886 @@
+{
+ "source": "cloud/public/holidays.js (exported 2026-11-02)",
+ "note": "fx and pal are lists of WLED effect/palette NAMES, first match on the controller wins. Resolve against GET /api/devices/:id/relay/json/eff and /json/pal. Colours are [r,g,b] 0-255 in slot order 1,2,3. c1-c3/o1-o3 are custom sliders/checkboxes; send them explicitly.",
+ "occasions": [
+  "Everyday",
+  "Christmas",
+  "Hanukkah",
+  "Halloween",
+  "Autumn",
+  "Thanksgiving",
+  "Fourth of July",
+  "Valentine's",
+  "St Patrick's",
+  "New Year",
+  "Easter & spring",
+  "Mardi Gras",
+  "Birthday"
+ ],
+ "looks": [
+  {
+   "id": "every-warm",
+   "occasion": "Everyday",
+   "name": "Warm white",
+   "pace": "still",
+   "blurb": "Steady warm white the whole way along. Not a display; the one that gets used most.",
+   "fx": [
+    "Solid"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 128,
+   "ix": 128,
+   "col": [
+    [
+     255,
+     180,
+     105
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "every-bulbs",
+   "occasion": "Everyday",
+   "name": "Warm white bulbs",
+   "pace": "still",
+   "blurb": "A 4-inch point of warm white every foot with dark between, like a string of C9 bulbs. Still.",
+   "fx": [
+    "Solid Pattern"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 1,
+   "ix": 3,
+   "col": [
+    [
+     255,
+     180,
+     105
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "every-amber",
+   "occasion": "Everyday",
+   "name": "Soft amber",
+   "pace": "still",
+   "blurb": "Steady amber, warmer and lower than white. Kind to the neighbours.",
+   "fx": [
+    "Solid"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 128,
+   "ix": 128,
+   "col": [
+    [
+     255,
+     145,
+     30
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "every-cool",
+   "occasion": "Everyday",
+   "name": "Cool white",
+   "pace": "still",
+   "blurb": "Steady cool white. Suits a grey, dark or modern house, where warm white can look yellow.",
+   "fx": [
+    "Solid"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 128,
+   "ix": 128,
+   "col": [
+    [
+     225,
+     235,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "every-twinkle",
+   "occasion": "Everyday",
+   "name": "Warm white with a twinkle",
+   "pace": "slow",
+   "blurb": "Steady warm white with about one pixel in four slowly brightening and settling back, every three or four seconds.",
+   "fx": [
+    "Twinkleup"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 40,
+   "ix": 60,
+   "col": [
+    [
+     255,
+     235,
+     205
+    ],
+    [
+     230,
+     150,
+     75
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "every-candle",
+   "occasion": "Everyday",
+   "name": "Candlelight",
+   "pace": "slow",
+   "blurb": "Amber, every pixel flickering gently on its own, like a long row of candles.",
+   "fx": [
+    "Candle Multi"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 40,
+   "ix": 110,
+   "col": [
+    [
+     255,
+     145,
+     30
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "every-ocean",
+   "occasion": "Everyday",
+   "name": "Ocean",
+   "pace": "medium",
+   "blurb": "WLED's own Pacifica: layers of deep blue and teal rolling past each other, with white where they crest. Pool-party rather than porch light.",
+   "fx": [
+    "Pacifica"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 100,
+   "ix": 128,
+   "col": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "every-cycle",
+   "occasion": "Everyday",
+   "name": "Slow colour cycle",
+   "pace": "slow",
+   "blurb": "The whole house one colour, drifting round the colour wheel once every half a minute.",
+   "fx": [
+    "Colorloop"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "xmas-rwg",
+   "occasion": "Christmas",
+   "name": "Red, white and green",
+   "pace": "still",
+   "blurb": "Red, warm white and green in 16-inch blocks along the roofline. Still. The classic.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     180,
+     105
+    ],
+    [
+     0,
+     200,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "xmas-candy",
+   "occasion": "Christmas",
+   "name": "Candy cane",
+   "pace": "still",
+   "blurb": "Red and white stripes, 18 inches each. Still.",
+   "fx": [
+    "Solid Pattern"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 8,
+   "ix": 8,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "xmas-holly",
+   "occasion": "Christmas",
+   "name": "Holly",
+   "pace": "still",
+   "blurb": "Deep green in 4-foot runs, each finished with an 8-inch red berry. Still.",
+   "fx": [
+    "Solid Pattern"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 23,
+   "ix": 3,
+   "col": [
+    [
+     0,
+     200,
+     40
+    ],
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "xmas-minis",
+   "occasion": "Christmas",
+   "name": "Multicolour minis",
+   "pace": "still",
+   "blurb": "Every pixel its own bulb colour — red, gold, green and blue in turn, the set repeating every 8 inches, like a string of mini lights. Still.",
+   "fx": [
+    "Colorful"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 120,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     200,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "xmas-minis-chase",
+   "occasion": "Christmas",
+   "name": "Chasing minis",
+   "pace": "medium",
+   "blurb": "The red, gold, green and blue mini-light string, its colours stepping along one pixel about three times a second.",
+   "fx": [
+    "Colorful"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 225,
+   "ix": 120,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     200,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "xmas-multi-twinkle",
+   "occasion": "Christmas",
+   "name": "Multicolour twinkle",
+   "pace": "medium",
+   "blurb": "Red, green and blue points fading in and out on their own over a dark roofline, every pixel its own colour, like a string of twinkle bulbs.",
+   "fx": [
+    "Twinklefox"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 120,
+   "ix": 150,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     0,
+     200,
+     40
+    ],
+    [
+     0,
+     50,
+     255
+    ]
+   ],
+   "o1": false
+  },
+  {
+   "id": "xmas-peppermint",
+   "occasion": "Christmas",
+   "name": "Peppermint twist",
+   "pace": "medium",
+   "blurb": "Red and white alternating pixel by pixel, the pairs swapping colours every four seconds in a smooth two-second cross-fade — a shimmering candy stripe.",
+   "fx": [
+    "Railway"
+   ],
+   "pal": [
+    "* Colors 1&2"
+   ],
+   "sx": 160,
+   "ix": 128,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "xmas-candy-march",
+   "occasion": "Christmas",
+   "name": "Candy cane, marching",
+   "pace": "medium",
+   "blurb": "Red and white 14-inch stripes running along the roofline at about a foot a second.",
+   "fx": [
+    "Chase 2"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 140,
+   "ix": 96,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "xmas-marquee",
+   "occasion": "Christmas",
+   "name": "Marquee",
+   "pace": "fast",
+   "blurb": "Warm white points every 6 inches over red, running quickly along like the lights round a theatre sign.",
+   "fx": [
+    "Theater"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 200,
+   "ix": 0,
+   "col": [
+    [
+     255,
+     180,
+     105
+    ],
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "xmas-stars",
+   "occasion": "Christmas",
+   "name": "Shooting stars",
+   "pace": "fast",
+   "blurb": "White streaks with long fading tails shooting along a night-blue roofline, several at a time, about three feet a second.",
+   "fx": [
+    "Multi Comet"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 205,
+   "ix": 150,
+   "col": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     40,
+     150
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "xmas-waves",
+   "occasion": "Christmas",
+   "name": "Christmas waves",
+   "pace": "medium",
+   "blurb": "Red, gold and green flowing along the roofline in soft rolling swells, the colours slowly shifting.",
+   "fx": [
+    "Colorwaves"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 50,
+   "ix": 128,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     200,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "xmas-icicle",
+   "occasion": "Christmas",
+   "name": "Icicles",
+   "pace": "slow",
+   "blurb": "Steady icy blue with about a third of the pixels slowly brightening to white and back. Cool and modern.",
+   "fx": [
+    "Twinkleup"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 50,
+   "ix": 85,
+   "col": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     140,
+     190,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "xmas-fade",
+   "occasion": "Christmas",
+   "name": "Red, white and green fade",
+   "pace": "slow",
+   "blurb": "The whole roofline slowly turning red, then warm white, then green, about seven seconds for each.",
+   "fx": [
+    "Tri Fade"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 16,
+   "ix": 128,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     180,
+     105
+    ],
+    [
+     0,
+     200,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "hanu-stripes",
+   "occasion": "Hanukkah",
+   "name": "Blue and white",
+   "pace": "still",
+   "blurb": "Royal blue and white in 2-foot sections. Still.",
+   "fx": [
+    "Solid Pattern"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 11,
+   "ix": 11,
+   "col": [
+    [
+     0,
+     50,
+     255
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hanu-gold",
+   "occasion": "Hanukkah",
+   "name": "Blue, white and gold",
+   "pace": "still",
+   "blurb": "Blue, white and gold in 16-inch blocks. Still. Gold for the candle flames.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     0,
+     50,
+     255
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     255,
+     205,
+     50
+    ]
+   ]
+  },
+  {
+   "id": "hanu-twinkle",
+   "occasion": "Hanukkah",
+   "name": "Blue with white twinkle",
+   "pace": "slow",
+   "blurb": "Steady royal blue with about a third of the pixels slowly brightening to white and back.",
+   "fx": [
+    "Twinkleup"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 45,
+   "ix": 85,
+   "col": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     50,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hanu-march",
+   "occasion": "Hanukkah",
+   "name": "Blue and white, marching",
+   "pace": "medium",
+   "blurb": "Blue and white 14-inch stripes running along the roofline at about a foot a second.",
+   "fx": [
+    "Chase 2"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 130,
+   "ix": 96,
+   "col": [
+    [
+     0,
+     50,
+     255
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hanu-waves",
+   "occasion": "Hanukkah",
+   "name": "Blue and white waves",
+   "pace": "medium",
+   "blurb": "Blue and white flowing along the roofline in soft rolling swells.",
+   "fx": [
+    "Colorwaves"
+   ],
+   "pal": [
+    "* Colors 1&2"
+   ],
+   "sx": 50,
+   "ix": 128,
+   "col": [
+    [
+     0,
+     50,
+     255
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hanu-lights",
+   "occasion": "Hanukkah",
+   "name": "Festival of lights",
+   "pace": "medium",
+   "blurb": "White, gold and blue points twinkling in and out over a dark roofline, every pixel its own colour.",
+   "fx": [
+    "Twinklefox"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 120,
+   "ix": 150,
+   "col": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     50,
+     255
+    ]
+   ],
+   "o1": true
+  },
+  {
+   "id": "hall-orangepurple",
+   "occasion": "Halloween",
+   "name": "Orange and purple",
+   "pace": "still",
+   "blurb": "Orange in 28-inch sections with 14 inches of purple between. Still. Orange leads, as it should.",
+   "fx": [
+    "Solid Pattern"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 13,
+   "ix": 6,
+   "col": [
+    [
+     255,
+     120,
+     0
+    ],
+    [
+     150,
+     0,
+     230
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hall-candycorn",
+   "occasion": "Halloween",
+   "name": "Candy corn",
+   "pace": "still",
+   "blurb": "Yellow, orange and white in 16-inch blocks. Still. Cheerful rather than spooky.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     255,
+     200,
+     0
+    ],
+    [
+     255,
+     70,
+     0
+    ],
+    [
+     255,
+     245,
+     225
+    ]
+   ]
+  },
+  {
+   "id": "hall-opg",
+   "occasion": "Halloween",
+   "name": "Orange, purple and green",
+   "pace": "still",
+   "blurb": "Orange, purple and green in 16-inch blocks. Still. All three Halloween colours.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     255,
+     120,
+     0
+    ],
+    [
+     150,
+     0,
+     230
+    ],
+    [
+     90,
+     255,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hall-pumpkin",
+   "occasion": "Halloween",
+   "name": "Jack-o'-lantern",
+   "pace": "fast",
+   "blurb": "Orange the whole way along, every pixel flickering quickly on its own between bright orange and a deeper red-orange, like candles in carved pumpkins.",
+   "fx": [
+    "Candle Multi"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 110,
+   "ix": 200,
+   "col": [
+    [
+     255,
+     130,
+     0
+    ],
+    [
+     200,
+     35,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hall-haunted",
+   "occasion": "Halloween",
+   "name": "Haunted candlelight",
+   "pace": "slow",
+   "blurb": "Pale ghostly white, every pixel guttering on its own like a candle in a draught.",
+   "fx": [
+    "Candle Multi"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 40,
+   "ix": 170,
+   "col": [
+    [
+     215,
+     225,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hall-eyes",
+   "occasion": "Halloween",
+   "name": "Watching eyes",
+   "pace": "slow",
+   "blurb": "Dark, until a pair of orange eyes fades in somewhere, watches, blinks and goes out. One pair per zone; on a 250-pixel zone each eye is 6 inches with a foot between.",
+   "fx": [
+    "Halloween Eyes"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 40,
+   "ix": 120,
+   "col": [
+    [
+     255,
+     90,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hall-ghost",
+   "occasion": "Halloween",
+   "name": "Ghost",
+   "pace": "medium",
+   "blurb": "One pale shape drifting along the dark roofline, its trail breaking up and fading behind it. About 13 seconds end to end.",
+   "fx": [
+    "Meteor"
+   ],
+   "pal": [
+    "* Color 1"
+   ],
+   "sx": 30,
+   "ix": 200,
+   "col": [
+    [
+     215,
+     225,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "o1": true,
+   "o3": true
+  },
+  {
+   "id": "hall-ooze",
+   "occasion": "Halloween",
+   "name": "Creeping ooze",
+   "pace": "slow",
+   "blurb": "Long, soft swells of acid green, about ten feet apart, crawling along the dark roofline at a foot a second.",
+   "fx": [
+    "Running"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 12,
+   "ix": 16,
+   "col": [
+    [
+     90,
+     255,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hall-march",
+   "occasion": "Halloween",
+   "name": "Orange and purple, marching",
+   "pace": "medium",
+   "blurb": "Orange and purple 14-inch stripes running along the roofline at about a foot a second.",
+   "fx": [
+    "Chase 2"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 140,
+   "ix": 96,
+   "col": [
+    [
+     255,
+     120,
+     0
+    ],
+    [
+     150,
+     0,
+     230
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hall-cauldron",
+   "occasion": "Halloween",
+   "name": "Cauldron sparks",
+   "pace": "fast",
+   "blurb": "Purple, acid-green and orange sparks flaring up and dying away all along a dark roofline, every pixel its own colour.",
+   "fx": [
+    "Colortwinkles"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 140,
+   "ix": 200,
+   "col": [
+    [
+     150,
+     0,
+     230
+    ],
+    [
+     90,
+     255,
+     0
+    ],
+    [
+     255,
+     120,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "hall-ripple",
+   "occasion": "Halloween",
+   "name": "Toxic ripples",
+   "pace": "medium",
+   "blurb": "Rings of acid green and violet bursting out from random points, spreading a couple of feet and fading, over black.",
+   "fx": [
+    "Ripple"
+   ],
+   "pal": [
+    "Toxy Reaf"
+   ],
+   "sx": 140,
+   "ix": 160,
+   "col": [
+    [
+     90,
+     255,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "c1": 0
+  },
+  {
+   "id": "hall-storm",
+   "occasion": "Halloween",
+   "name": "Thunderstorm",
+   "pace": "fast",
+   "flashing": true,
+   "blurb": "Dark, with a flickering strike of pale lightning across part of the roofline every ten seconds or so. This one flashes.",
+   "fx": [
+    "Lightning"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 60,
+   "ix": 128,
+   "col": [
+    [
+     215,
+     225,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "fall-harvest",
+   "occasion": "Autumn",
+   "name": "Harvest",
+   "pace": "still",
+   "blurb": "Burnt orange, gold and deep red in 16-inch blocks. Still.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     255,
+     70,
+     0
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     200,
+     0,
+     10
+    ]
+   ]
+  },
+  {
+   "id": "fall-leaves",
+   "occasion": "Autumn",
+   "name": "Turning leaves",
+   "pace": "slow",
+   "blurb": "Gold shading through orange to red and back, three times across each zone, drifting very slowly.",
+   "fx": [
+    "Palette"
+   ],
+   "pal": [
+    "* Color Gradient"
+   ],
+   "sx": 0,
+   "ix": 160,
+   "col": [
+    [
+     230,
+     20,
+     0
+    ],
+    [
+     255,
+     120,
+     0
+    ],
+    [
+     255,
+     205,
+     50
+    ]
+   ],
+   "o1": true
+  },
+  {
+   "id": "fall-flicker",
+   "occasion": "Autumn",
+   "name": "Falling leaves",
+   "pace": "slow",
+   "blurb": "Steady amber with about a third of the pixels slowly turning deep red-orange and back.",
+   "fx": [
+    "Twinkleup"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 40,
+   "ix": 85,
+   "col": [
+    [
+     220,
+     40,
+     0
+    ],
+    [
+     255,
+     145,
+     30
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "fall-scatter",
+   "occasion": "Autumn",
+   "name": "Leaf scatter",
+   "pace": "medium",
+   "blurb": "Red, burnt-orange and gold points flaring up and fading all along a dark roofline, every pixel its own colour.",
+   "fx": [
+    "Colortwinkles"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 60,
+   "ix": 140,
+   "col": [
+    [
+     230,
+     20,
+     0
+    ],
+    [
+     255,
+     70,
+     0
+    ],
+    [
+     255,
+     205,
+     50
+    ]
+   ]
+  },
+  {
+   "id": "fall-wind",
+   "occasion": "Autumn",
+   "name": "Autumn wind",
+   "pace": "slow",
+   "blurb": "Red, orange and gold flowing slowly along the roofline in soft swells.",
+   "fx": [
+    "Colorwaves"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 20,
+   "ix": 128,
+   "col": [
+    [
+     230,
+     20,
+     0
+    ],
+    [
+     255,
+     120,
+     0
+    ],
+    [
+     255,
+     205,
+     50
+    ]
+   ]
+  },
+  {
+   "id": "thnx-glow",
+   "occasion": "Thanksgiving",
+   "name": "Harvest glow",
+   "pace": "still",
+   "blurb": "Warm white and orange in 2-foot sections. Still. The table, not the yard.",
+   "fx": [
+    "Solid Pattern"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 11,
+   "ix": 11,
+   "col": [
+    [
+     255,
+     180,
+     105
+    ],
+    [
+     255,
+     120,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "thnx-table",
+   "occasion": "Thanksgiving",
+   "name": "Gold, orange and cream",
+   "pace": "still",
+   "blurb": "Gold, burnt orange and warm cream in 16-inch blocks. Still.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     255,
+     70,
+     0
+    ],
+    [
+     255,
+     215,
+     160
+    ]
+   ]
+  },
+  {
+   "id": "thnx-cranberry",
+   "occasion": "Thanksgiving",
+   "name": "Cranberry and cream",
+   "pace": "medium",
+   "blurb": "Deep cranberry and warm cream 16-inch stripes moving along at a gentle walk.",
+   "fx": [
+    "Chase 2"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 100,
+   "ix": 112,
+   "col": [
+    [
+     190,
+     0,
+     30
+    ],
+    [
+     255,
+     215,
+     160
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "thnx-chase",
+   "occasion": "Thanksgiving",
+   "name": "Harvest procession",
+   "pace": "slow",
+   "blurb": "Gold, burnt orange and cranberry 16-inch bands drifting slowly along, about five inches a second.",
+   "fx": [
+    "Chase 3"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 80,
+   "ix": 112,
+   "col": [
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     255,
+     70,
+     0
+    ],
+    [
+     190,
+     0,
+     30
+    ]
+   ]
+  },
+  {
+   "id": "thnx-hearth",
+   "occasion": "Thanksgiving",
+   "name": "Hearth",
+   "pace": "medium",
+   "blurb": "Every pixel glowing between orange and a deep red at a lazy pace. The fireplace, not the bonfire.",
+   "fx": [
+    "Candle Multi"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 70,
+   "ix": 170,
+   "col": [
+    [
+     255,
+     120,
+     0
+    ],
+    [
+     150,
+     20,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "thnx-sunset",
+   "occasion": "Thanksgiving",
+   "name": "Harvest sunset",
+   "pace": "slow",
+   "blurb": "The whole roofline slowly turning gold, then burnt orange, then cranberry, about eleven seconds for each.",
+   "fx": [
+    "Tri Fade"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 8,
+   "ix": 128,
+   "col": [
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     255,
+     70,
+     0
+    ],
+    [
+     190,
+     0,
+     30
+    ]
+   ]
+  },
+  {
+   "id": "usa-stripes",
+   "occasion": "Fourth of July",
+   "name": "Red, white and blue",
+   "pace": "still",
+   "blurb": "Red, white and blue in 16-inch blocks. Still. Right for any of the patriotic holidays.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     50,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "usa-honour",
+   "occasion": "Fourth of July",
+   "name": "White with blue",
+   "pace": "still",
+   "blurb": "White in 4-foot runs, each finished with a foot of blue. Still and restrained, for Memorial and Veterans Day.",
+   "fx": [
+    "Solid Pattern"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 23,
+   "ix": 5,
+   "col": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     50,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "usa-drift",
+   "occasion": "Fourth of July",
+   "name": "Red, white and blue, drifting",
+   "pace": "slow",
+   "blurb": "Broad red, white and blue bands, about 32 inches each, drifting slowly along.",
+   "fx": [
+    "Chase 3"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 100,
+   "ix": 255,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     50,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "usa-stars",
+   "occasion": "Fourth of July",
+   "name": "Stars on blue",
+   "pace": "slow",
+   "blurb": "Steady blue with scattered pixels slowly brightening to white and back — the flag's field of stars.",
+   "fx": [
+    "Twinkleup"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 45,
+   "ix": 60,
+   "col": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     50,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "usa-fade",
+   "occasion": "Fourth of July",
+   "name": "Red, white and blue fade",
+   "pace": "slow",
+   "blurb": "The whole roofline slowly turning red, then white, then blue, about five seconds for each.",
+   "fx": [
+    "Tri Fade"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 24,
+   "ix": 128,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     50,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "usa-sparkle",
+   "occasion": "Fourth of July",
+   "name": "Freedom sparkle",
+   "pace": "medium",
+   "blurb": "Red, white and blue points flaring up and fading at random all along a dark roofline.",
+   "fx": [
+    "Colortwinkles"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 100,
+   "ix": 180,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     50,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "usa-sparkler",
+   "occasion": "Fourth of July",
+   "name": "Sparkler",
+   "pace": "fast",
+   "blurb": "A bright gold streak with a crackling tail racing along each zone, end to end in under a second and a half.",
+   "fx": [
+    "Meteor"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 160,
+   "ix": 128,
+   "col": [
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "o1": false,
+   "o3": false
+  },
+  {
+   "id": "usa-fireworks",
+   "occasion": "Fourth of July",
+   "name": "Fireworks",
+   "pace": "fast",
+   "flashing": true,
+   "blurb": "Red, white and blue bursts flashing and spreading all along the roofline. Busy by design.",
+   "fx": [
+    "Fireworks Starburst",
+    "Fireworks"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 120,
+   "ix": 150,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     50,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "val-pinkred",
+   "occasion": "Valentine's",
+   "name": "Pink and red",
+   "pace": "still",
+   "blurb": "Soft pink in 2-foot sections with a foot of red between. Still.",
+   "fx": [
+    "Solid Pattern"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 11,
+   "ix": 5,
+   "col": [
+    [
+     255,
+     110,
+     170
+    ],
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "val-prw",
+   "occasion": "Valentine's",
+   "name": "Red, pink and white",
+   "pace": "still",
+   "blurb": "Red, pink and white in 16-inch blocks. Still.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     110,
+     170
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "val-shimmer",
+   "occasion": "Valentine's",
+   "name": "Pink shimmer",
+   "pace": "slow",
+   "blurb": "Steady pink with about a third of the pixels slowly brightening to blush white and back.",
+   "fx": [
+    "Twinkleup"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 45,
+   "ix": 85,
+   "col": [
+    [
+     255,
+     215,
+     230
+    ],
+    [
+     255,
+     110,
+     170
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "val-twinkle",
+   "occasion": "Valentine's",
+   "name": "Sweetheart twinkle",
+   "pace": "medium",
+   "blurb": "Red, pink and white points twinkling in and out over a dark roofline, every pixel its own colour.",
+   "fx": [
+    "Twinklefox"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 110,
+   "ix": 150,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     110,
+     170
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ],
+   "o1": true
+  },
+  {
+   "id": "val-heart",
+   "occasion": "Valentine's",
+   "name": "Heartbeat",
+   "pace": "medium",
+   "blurb": "Deep red, with the whole roofline beating brighter in a double heartbeat, fifty times a minute. Never goes dark.",
+   "fx": [
+    "Heartbeat"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 80,
+   "ix": 128,
+   "col": [
+    [
+     255,
+     30,
+     60
+    ],
+    [
+     150,
+     0,
+     15
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "val-arrows",
+   "occasion": "Valentine's",
+   "name": "Cupid's arrows",
+   "pace": "fast",
+   "blurb": "Pale pink streaks with fading tails shooting along a deep red roofline, several at a time.",
+   "fx": [
+    "Multi Comet"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 200,
+   "ix": 150,
+   "col": [
+    [
+     255,
+     180,
+     210
+    ],
+    [
+     150,
+     0,
+     15
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "stpat-luck",
+   "occasion": "St Patrick's",
+   "name": "Luck of the Irish",
+   "pace": "still",
+   "blurb": "Green, gold and white in 16-inch blocks. Still.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     0,
+     200,
+     40
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "stpat-shamrock",
+   "occasion": "St Patrick's",
+   "name": "Shamrock",
+   "pace": "still",
+   "blurb": "Green in 3-foot runs, each finished with a foot of white. Still.",
+   "fx": [
+    "Solid Pattern"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 17,
+   "ix": 5,
+   "col": [
+    [
+     0,
+     200,
+     40
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "stpat-flag",
+   "occasion": "St Patrick's",
+   "name": "Tricolour",
+   "pace": "still",
+   "blurb": "Green, white and orange in 16-inch blocks, the Irish flag. Still.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     0,
+     200,
+     40
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     255,
+     120,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "stpat-emerald",
+   "occasion": "St Patrick's",
+   "name": "Emerald shimmer",
+   "pace": "slow",
+   "blurb": "Steady green with about a third of the pixels slowly brightening to a pale green and back.",
+   "fx": [
+    "Twinkleup"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 40,
+   "ix": 85,
+   "col": [
+    [
+     170,
+     255,
+     170
+    ],
+    [
+     0,
+     200,
+     40
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "stpat-gold",
+   "occasion": "St Patrick's",
+   "name": "Pot of gold",
+   "pace": "slow",
+   "blurb": "Steady green with scattered pixels slowly warming to gold and back.",
+   "fx": [
+    "Twinkleup"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 40,
+   "ix": 60,
+   "col": [
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     200,
+     40
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "stpat-march",
+   "occasion": "St Patrick's",
+   "name": "Shamrock parade",
+   "pace": "medium",
+   "blurb": "Green and white 14-inch stripes running along the roofline at about a foot a second.",
+   "fx": [
+    "Chase 2"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 140,
+   "ix": 96,
+   "col": [
+    [
+     0,
+     200,
+     40
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "stpat-sparkle",
+   "occasion": "St Patrick's",
+   "name": "Lucky sparkle",
+   "pace": "medium",
+   "blurb": "Green, gold and white points flaring up and fading at random all along a dark roofline.",
+   "fx": [
+    "Colortwinkles"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 100,
+   "ix": 160,
+   "col": [
+    [
+     0,
+     200,
+     40
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "ny-goldsilver",
+   "occasion": "New Year",
+   "name": "Gold and silver",
+   "pace": "still",
+   "blurb": "Gold and bright white in 18-inch sections. Still.",
+   "fx": [
+    "Solid Pattern"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 8,
+   "ix": 8,
+   "col": [
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "ny-champagne",
+   "occasion": "New Year",
+   "name": "Champagne",
+   "pace": "medium",
+   "blurb": "Steady gold with about a third of the pixels brightening to white and back, a little quicker than the other twinkles.",
+   "fx": [
+    "Twinkleup"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 90,
+   "ix": 85,
+   "col": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "ny-sparkle",
+   "occasion": "New Year",
+   "name": "Silver sparkle",
+   "pace": "fast",
+   "blurb": "White points twinkling quickly in and out over a dark roofline.",
+   "fx": [
+    "Twinklefox"
+   ],
+   "pal": [
+    "* Color 1"
+   ],
+   "sx": 140,
+   "ix": 160,
+   "col": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "o1": true
+  },
+  {
+   "id": "ny-streaks",
+   "occasion": "New Year",
+   "name": "Gold rush",
+   "pace": "fast",
+   "blurb": "Gold and white streaks with fading tails racing along a dark roofline, several at a time.",
+   "fx": [
+    "Multi Comet"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 215,
+   "ix": 140,
+   "col": [
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     255,
+     255,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "ny-midnight",
+   "occasion": "New Year",
+   "name": "Midnight",
+   "pace": "fast",
+   "flashing": true,
+   "blurb": "White and gold bursts flashing and spreading along the roofline, for the countdown.",
+   "fx": [
+    "Fireworks Starburst",
+    "Fireworks"
+   ],
+   "pal": [
+    "* Colors 1&2"
+   ],
+   "sx": 140,
+   "ix": 150,
+   "col": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "spring-eggs",
+   "occasion": "Easter & spring",
+   "name": "Easter eggs",
+   "pace": "still",
+   "blurb": "Pink, yellow and sky blue in 16-inch blocks. Still.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     255,
+     110,
+     170
+    ],
+    [
+     255,
+     200,
+     0
+    ],
+    [
+     110,
+     200,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "spring-pastel",
+   "occasion": "Easter & spring",
+   "name": "Spring pastels",
+   "pace": "still",
+   "blurb": "Lavender, mint and pink in 16-inch blocks. Still.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     185,
+     140,
+     255
+    ],
+    [
+     130,
+     255,
+     175
+    ],
+    [
+     255,
+     110,
+     170
+    ]
+   ]
+  },
+  {
+   "id": "spring-blossom",
+   "occasion": "Easter & spring",
+   "name": "Cherry blossom",
+   "pace": "slow",
+   "blurb": "Steady soft pink with about a third of the pixels slowly brightening to white and back.",
+   "fx": [
+    "Twinkleup"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 35,
+   "ix": 85,
+   "col": [
+    [
+     255,
+     255,
+     255
+    ],
+    [
+     255,
+     110,
+     170
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  },
+  {
+   "id": "spring-twinkle",
+   "occasion": "Easter & spring",
+   "name": "Spring twinkle",
+   "pace": "medium",
+   "blurb": "Pink, lavender and mint points twinkling in and out over a dark roofline, every pixel its own colour.",
+   "fx": [
+    "Twinklefox"
+   ],
+   "pal": [
+    "* Colors Only"
+   ],
+   "sx": 100,
+   "ix": 150,
+   "col": [
+    [
+     255,
+     110,
+     170
+    ],
+    [
+     185,
+     140,
+     255
+    ],
+    [
+     130,
+     255,
+     175
+    ]
+   ],
+   "o1": true
+  },
+  {
+   "id": "spring-parade",
+   "occasion": "Easter & spring",
+   "name": "Easter parade",
+   "pace": "slow",
+   "blurb": "Pink, yellow and sky-blue 16-inch bands drifting slowly along.",
+   "fx": [
+    "Chase 3"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 100,
+   "ix": 112,
+   "col": [
+    [
+     255,
+     110,
+     170
+    ],
+    [
+     255,
+     200,
+     0
+    ],
+    [
+     110,
+     200,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "spring-minis",
+   "occasion": "Easter & spring",
+   "name": "Easter minis",
+   "pace": "medium",
+   "blurb": "Orange, yellow, light green and aqua, one per pixel like a string of mini lights, stepping along twice a second.",
+   "fx": [
+    "Colorful"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 200,
+   "ix": 40,
+   "col": [
+    [
+     255,
+     110,
+     170
+    ],
+    [
+     255,
+     200,
+     0
+    ],
+    [
+     110,
+     200,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "mardi-carnival",
+   "occasion": "Mardi Gras",
+   "name": "Carnival",
+   "pace": "still",
+   "blurb": "Purple, gold and green in 16-inch blocks. Still.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     150,
+     0,
+     230
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     200,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "mardi-fade",
+   "occasion": "Mardi Gras",
+   "name": "Carnival fade",
+   "pace": "slow",
+   "blurb": "The whole roofline slowly turning purple, then gold, then green, about five seconds for each.",
+   "fx": [
+    "Tri Fade"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 24,
+   "ix": 128,
+   "col": [
+    [
+     150,
+     0,
+     230
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     200,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "mardi-parade",
+   "occasion": "Mardi Gras",
+   "name": "Parade",
+   "pace": "medium",
+   "blurb": "Purple, gold and green 16-inch bands marching along at about ten inches a second.",
+   "fx": [
+    "Chase 3"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 180,
+   "ix": 112,
+   "col": [
+    [
+     150,
+     0,
+     230
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     200,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "mardi-beads",
+   "occasion": "Mardi Gras",
+   "name": "Beads",
+   "pace": "fast",
+   "blurb": "Purple, gold and green one pixel each, like a string of beads, the colours racing along about six steps a second.",
+   "fx": [
+    "Colorful"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 240,
+   "ix": 200,
+   "col": [
+    [
+     150,
+     0,
+     230
+    ],
+    [
+     255,
+     205,
+     50
+    ],
+    [
+     0,
+     200,
+     40
+    ]
+   ]
+  },
+  {
+   "id": "bday-balloons",
+   "occasion": "Birthday",
+   "name": "Balloons",
+   "pace": "still",
+   "blurb": "Red, yellow and blue in 16-inch blocks, the primary colours of a bunch of balloons. Still.",
+   "fx": [
+    "Solid Pattern Tri"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 0,
+   "ix": 255,
+   "col": [
+    [
+     255,
+     0,
+     0
+    ],
+    [
+     255,
+     200,
+     0
+    ],
+    [
+     0,
+     50,
+     255
+    ]
+   ]
+  },
+  {
+   "id": "bday-confetti",
+   "occasion": "Birthday",
+   "name": "Confetti",
+   "pace": "medium",
+   "blurb": "Points of every colour twinkling in and out over a dark roofline. Party, not holiday.",
+   "fx": [
+    "Twinklefox"
+   ],
+   "pal": [
+    "Party"
+   ],
+   "sx": 90,
+   "ix": 150,
+   "col": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ],
+   "o1": true
+  },
+  {
+   "id": "bday-rainbow",
+   "occasion": "Birthday",
+   "name": "Rainbow",
+   "pace": "fast",
+   "blurb": "Two full rainbows across each zone, rolling along — the colours come round every four seconds.",
+   "fx": [
+    "Rainbow"
+   ],
+   "pal": [
+    "Default"
+   ],
+   "sx": 60,
+   "ix": 160,
+   "col": [
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ],
+    [
+     0,
+     0,
+     0
+    ]
+   ]
+  }
+ ]
+}
